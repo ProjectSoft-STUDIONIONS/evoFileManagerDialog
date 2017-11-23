@@ -1,6 +1,6 @@
 //<?php
 /**
- * MODX.Evolution.updateNotify
+ * EvoFileManagerDialog
  *
  * Открыте файлменеджера в окне редактирования документа, а не в новом окне браузера.
  *
