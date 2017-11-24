@@ -197,6 +197,7 @@
 		$kcfinderFrame.on('load', function(){
 			var iframeDocument = $kcfinderFrame[0].contentWindow.document;
 			$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text(iframeDocument.title);
+			$('a[href="kcact:maximize"]', iframeDocument).hide();
 			$("title", iframeDocument)[0].addEventListener("DOMSubtreeModified", function() {
 				$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text(iframeDocument.title);
 			});
