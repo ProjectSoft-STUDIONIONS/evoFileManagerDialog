@@ -153,14 +153,27 @@
 		// Дирректория файла которая указана в input
 		directory = function(ctrl){
 			var dir = "",
-				input = document.getElementById(ctrl),
-				value = input.value.replace(/assets\//g, ""),
+				value = "",
+				path = "",
+				input = ctrl ? document.getElementById(ctrl) : document.getElementsByName('photo')[0];
+			if(input){
+				value = input.value.replace(/assets\//g, "");
 				path = value.replace(/^(.+?\/)((\.\.\/)?[^\/]+)$/, '$1');
+			}
 			if(path!=""){
 				dir += "&dir="+path;
 			}
 			return dir;
 		};
+	window.SetUrlChange = function(el) {
+		if('createEvent' in document) {
+			var evt = document.createEvent('HTMLEvents');
+			evt.initEvent('change', false, true);
+			el.dispatchEvent(evt);
+		} else {
+			el.fireEvent('onchange');
+		}
+	}
 	// Переопределяем глобальную функию OpenServerBrowser
 	window.OpenServerBrowser = function(url) {
 		var w1 = $body.outerWidth(true),
@@ -206,24 +219,44 @@
 	// Переопределяем глобальную функию BrowseServer
 	window.BrowseServer = function(ctrl) {
 		openDialogWindow();
-		lastImageCtrl = ctrl;
+		var dir = "";
 		if($kcfinderBlock.length){
 			if ($kcfinderBlock[0].style.display == "block") {
 				clearBodyStyle($body, $actions);
 				return;
 			}
 		}
-		// Переопределяем объект window.KCFinder
-		window.KCFinder = {
-			callBack: function(url) {
-				field = document.getElementById(lastImageCtrl);
-				window.KCFinder = null;
-				field.value = url;
-				SetUrlChange(field);
-				clearBodyStyle($body, $actions);
-			}
-		};
-		var dir = directory(ctrl);
+		if(ctrl){
+			lastImageCtrl = ctrl;
+			// Переопределяем объект window.KCFinder
+			window.KCFinder = {
+				callBack: function(url) {
+					var field = document.getElementById(lastImageCtrl);
+					window.KCFinder = null;
+					field.value = url;
+					SetUrlChange(field);
+					clearBodyStyle($body, $actions);
+				}
+			};
+			dir = directory(ctrl);
+		}else{
+			window.KCFinder = {
+				callBack: function(url) {
+					var field = $('input[name="photo"]'),
+						img = $('img[name=iphoto]');
+					window.KCFinder = null;
+					if(field.length){
+						field.val(url);
+						img.attr({
+							src: "/"+url
+						})
+						SetUrlChange(field[0]);
+					}
+					clearBodyStyle($body, $actions);
+				}
+			};
+			dir = directory();	
+		}
 		OpenServerBrowser(window.filemanageropen_url + '?type=images' + dir);
 	}
 	// Переопределяем глобальную функию BrowseFileServer

@@ -9,6 +9,8 @@ $e = &$modx->event;
 
 switch($e->name){
 	case "OnDocFormRender":
+	case "OnUserFormRender":
+	case "OnWUsrFormRender":
 		$browser = $modx->getConfig('which_browser');
 		$media_browser = MODX_MANAGER_URL . 'media/browser/' . $browser . '/browse.php';
 		$js = "assets/plugins/filemanageropen/js/main.js";
