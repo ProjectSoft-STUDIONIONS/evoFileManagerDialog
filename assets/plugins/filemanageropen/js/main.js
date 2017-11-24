@@ -207,9 +207,11 @@
 	window.BrowseServer = function(ctrl) {
 		openDialogWindow();
 		lastImageCtrl = ctrl;
-		if ($kcfinderBlock[0].style.display == "block") {
-			clearBodyStyle($body, $actions);
-			return;
+		if($kcfinderBlock.length){
+			if ($kcfinderBlock[0].style.display == "block") {
+				clearBodyStyle($body, $actions);
+				return;
+			}
 		}
 		// Переопределяем объект window.KCFinder
 		window.KCFinder = {
@@ -228,9 +230,11 @@
 	window.BrowseFileServer = function(ctrl) {
 		openDialogWindow();
 		lastFileCtrl = ctrl;
-		if ($kcfinderBlock.style.display == "block") {
-			clearBodyStyle($body, $actions);
-			return;
+		if($kcfinderBlock.length){
+			if ($kcfinderBlock[0].style.display == "block") {
+				clearBodyStyle($body, $actions);
+				return;
+			}
 		}
 		// Переопределяем объект window.KCFinder
 		window.KCFinder = {
