@@ -8,7 +8,7 @@
  * @version     1.0.5
  * @license     http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @package     modx
- * @author      ProjectSoft (https://demiart.ru/forum/index.php?showuser=1393929)
+ * @author      ProjectSoft<projectsoft2009@yandex.ru> (https://projectsoft.ru/)
  * @internal    @events OnDocFormRender,OnUserFormRender,OnWUsrFormRender
  * @internal    @modx_category Manager and Admin
  * @internal    @properties 
