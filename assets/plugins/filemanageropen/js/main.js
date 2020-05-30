@@ -330,38 +330,35 @@
 	 ** Добавим кнопки к контенту
 	**/
 	if(showButtons){
-		var $cb = $('#content_header');
-		if($cb.length){
-			var $td = $cb.closest('td[colspan=2]');
-			if($td.length){
-				var html = '<hr><div class="evoflbw_wrapper">';
-				html += '<span><a href="evoflbw:images" class="text-center"><i class="fas fa-camera text-center"></i>Изображения</a></span>';
-				html += '<span><a href="evoflbw:files" class="text-center"><i class="fas fa-file-alt text-center"></i>Файлы</a></span>';
-				html += '</div>';
-				$td.prepend(html);
-				$('a[href="evoflbw:images"]').on('click', function(e){
-					e.preventDefault();
-					window.KCFinder = {
-						callBack: function(url) {
-							copyFilePath(url);
-						}
-					};
-					openDialogWindow();
-					OpenServerBrowser(window.filemanageropen_url + '?type=images');
-					return !1;
-				});
-				$('a[href="evoflbw:files"]').on('click', function(e){
-					e.preventDefault();
-					window.KCFinder = {
-						callBack: function(url) {
-							copyFilePath(url);
-						}
-					};
-					openDialogWindow();
-					OpenServerBrowser(window.filemanageropen_url + '?type=files');
-					return !1;
-				});
-			}
+		var $td = $('#content_body');
+		if($td.length){
+			var html = '<hr><div class="evoflbw_wrapper">';
+			html += '<span><a href="evoflbw:images" class="text-center"><i class="fas fa-camera text-center"></i>Изображения</a></span>';
+			html += '<span><a href="evoflbw:files" class="text-center"><i class="fas fa-file-alt text-center"></i>Файлы</a></span>';
+			html += '</div>';
+			$td.prepend(html);
+			$('a[href="evoflbw:images"]').on('click', function(e){
+				e.preventDefault();
+				window.KCFinder = {
+					callBack: function(url) {
+						copyFilePath(url);
+					}
+				};
+				openDialogWindow();
+				OpenServerBrowser(window.filemanageropen_url + '?type=images');
+				return !1;
+			});
+			$('a[href="evoflbw:files"]').on('click', function(e){
+				e.preventDefault();
+				window.KCFinder = {
+					callBack: function(url) {
+						copyFilePath(url);
+					}
+				};
+				openDialogWindow();
+				OpenServerBrowser(window.filemanageropen_url + '?type=files');
+				return !1;
+			});
 		}
 	}
 })(document, window, jQuery);
