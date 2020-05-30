@@ -11,15 +11,17 @@
 	padding: 1px;
 	z-index: 99999999999;
 	user-select: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
+
 #kcfinder_div .kcfinder-window {
 	background-color: #fff;
 	position: fixed;
 	border-radius: 5px;
-	width: 80%;
-	height: 95%;
-	top: 2.5%;
-	left: 10%;
+	min-width: 90%;
+	height: 100vh;
 }
 #kcfinder_div .kcfinder-header {
 	display: block;
@@ -76,4 +78,29 @@
 	position: relative;
 	border: 0px solid transparent;
 	user-select: none;
+}
+.evoflbw_wrapper {
+	display: flex;
+	flex-direction: row;
+}
+.evoflbw_wrapper a {
+	user-select: none;
+	display: block;
+	height: 100%;
+	padding: 0.5rem 1rem .5rem;
+	text-decoration: none;
+	color: #646b7b;
+	box-shadow: none;
+	transition-duration: .5s;
+	background-color: transparent;
+}
+.evoflbw_wrapper a:hover {
+	color: #373b46;
+	background-color: rgba(93,109,202,0.16);
+}
+.evoflbw_wrapper a .fas {
+	display: block;
+	margin-bottom: 0.2rem;
+	font-size: 1.5rem;
+	min-width: 100px;
 }
