@@ -332,10 +332,10 @@
 	if(showButtons){
 		var $td = $('#content_body');
 		if($td.length){
-			var html = '<hr><div class="evoflbw_wrapper">';
+			var html = '<div class="evoflbw_wrapper">';
 			html += '<span><a href="evoflbw:images" class="text-center"><i class="fas fa-camera text-center"></i>Изображения</a></span>';
 			html += '<span><a href="evoflbw:files" class="text-center"><i class="fas fa-file-alt text-center"></i>Файлы</a></span>';
-			html += '</div>';
+			html += '</div><hr>';
 			$td.prepend(html);
 			$('a[href="evoflbw:images"]').on('click', function(e){
 				e.preventDefault();
