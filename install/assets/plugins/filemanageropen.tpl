@@ -5,7 +5,7 @@
  * Открыте файлменеджера в окне редактирования документа, а не в новом окне браузера.
  *
  * @category    plugin
- * @version     1.1.1
+ * @version     1.2.0
  * @license     http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @package     modx
  * @author      ProjectSoft<projectsoft2009@yandex.ru> (https://projectsoft.ru/)
