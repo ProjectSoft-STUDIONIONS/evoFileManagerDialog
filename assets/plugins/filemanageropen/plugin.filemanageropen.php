@@ -6,9 +6,7 @@
 if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 
 $e = &$modx->event;
-$params = $e->params;
-$showAlert = isset($params["show_alert_copy"]) ? ((int)$params["show_alert_copy"] ? "1" : "0") : "1";
-$showButtons = isset($params["show_buttons"]) ? ((int)$params["show_buttons"] ? "1" : "0") : "1";
+
 switch($e->name){
 	case "OnDocFormRender":
 	case "OnUserFormRender":
@@ -26,9 +24,8 @@ switch($e->name){
 		{
 			$css = $css. "?" . filemtime(MODX_BASE_PATH . $css);
 		}
-		$showAlert = (int)$modx->
 		$out = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/{$css}\">
-		<script type=\"text/javascript\">window.filemanageropen_url = \"{$media_browser}\"; window.filemanageropen_alert = " . $showAlert . "; window.filemanageropen_showbtn = " . $showButtons . ";</script>
+		<script type=\"text/javascript\">window.filemanageropen_url = \"{$media_browser}\";</script>
 		<script type=\"text/javascript\" src=\"/{$js}\"></script>";
 		$modx->event->output($out);
 		break;
