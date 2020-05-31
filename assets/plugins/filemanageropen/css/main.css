@@ -82,12 +82,17 @@
 .evoflbw_wrapper {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
+	margin-bottom: 1rem;
 }
 .evoflbw_wrapper a {
 	user-select: none;
-	display: block;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
 	height: 100%;
-	padding: 0.5rem 1rem .5rem;
+	padding: 0.3rem 1.5rem 0.3rem;
 	text-decoration: none;
 	color: #646b7b;
 	box-shadow: none;
@@ -99,8 +104,7 @@
 	background-color: rgba(93,109,202,0.16);
 }
 .evoflbw_wrapper a .fas {
-	display: block;
-	margin-bottom: 0.2rem;
+	display: inline-block;
 	font-size: 1.5rem;
-	min-width: 100px;
+	margin-right: 8px;
 }

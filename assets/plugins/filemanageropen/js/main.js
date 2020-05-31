@@ -77,6 +77,7 @@
 	window.lastImageCtrl = '';
 	window.lastFileCtrl = '';
 	var $kcfinderWindow = $('<div class="kcfinder-window"><div class="kcfinder-header"><span class="kcfinder-header-title">File Manager</span><span id="kcfinder-close" class="kcfinder-header-close">×</span></div><div class="kcfinder-body"><div id="kcfinder-frame"></div></div></div>'),
+		currentWin = window,
 		$kcfinderBlock,
 		$kcfinderFrameBlock,
 		$closeBtn,
@@ -96,7 +97,7 @@
 			$closeBtn.on("click", closeBtnCallback);
 		},
 		clearBodyStyle = function(body, actions){
-			lastFileCtrl = lastFileCtrl = '';
+			lastFileCtrl = lastImageCtrl = '';
 			window.KCFinder = null;
 			$kcfinderBlock.removeAttr("style");
 			$kcfinderFrameBlock.html("");
@@ -167,13 +168,14 @@
 			}
 			return dir;
 		},
-		copyFilePath = function(file_path) {
-			if(navigator.clipboard){
-				navigator.clipboard.writeText(file_path).then(function(){
+		copyFilePath = function(file_path){
+			file_path = file_path.join(`\n`);
+			clearBodyStyle($body, $actions);
+			if(currentWin.navigator.clipboard){
+				currentWin.navigator.clipboard.writeText(file_path).then(function(){
 					if(showAlert){
-						alert("Скопировано\n" + file_path);
+						currentWin.alert("Скопировано\n" + file_path);
 					}
-					clearBodyStyle($body, $actions);
 				}, function(err){
 					alternativeCopyFilePath(file_path);
 				});
@@ -182,25 +184,22 @@
 			}
 			function alternativeCopyFilePath(path) {
 				try {
-					var input =  document.createElement("input");
-					input.type = 'text'
+					var input =  currentWin.document.createElement("textarea");
 					input.value = path;
-					document.body.appendChild(input);
+					currentWin.document.body.appendChild(input);
 					input.style.cssText = 'opacity: 0px; position: fixed; top: 0px; left: 0px';
 					input.focus();
 					input.select();
-					if(!document.execCommand('copy')) {
-						alert("1 - alert");
-						alert("Ваш браузер не поддерживает копирование в буфер обмена.");
+					if(!currentWin.document.execCommand('copy')) {
+						currentWin.alert("Ваш браузер не поддерживает копирование в буфер обмена.");
 					}
-					document.body.removeChild(input);
+					currentWin.document.body.removeChild(input);
 					if(showAlert){
-						alert("Скопировано\n" + path);
+						currentWin.alert("Скопировано\n" + path);
 					}
 				} catch (err) {
-					alert("Ваш браузер не поддерживает копирование в буфер обмена.");
+					currentWin.alert("Ваш браузер не поддерживает копирование в буфер обмена.");
 				}
-				clearBodyStyle($body, $actions);
 			}
 		};
 	window.SetUrlChange = function(el) {
@@ -335,12 +334,12 @@
 			var html = '<div class="evoflbw_wrapper">';
 			html += '<span><a href="evoflbw:images" class="text-center"><i class="fas fa-camera text-center"></i>Изображения</a></span>';
 			html += '<span><a href="evoflbw:files" class="text-center"><i class="fas fa-file-alt text-center"></i>Файлы</a></span>';
-			html += '</div><hr>';
+			html += '</div>';
 			$td.prepend(html);
 			$('a[href="evoflbw:images"]').on('click', function(e){
 				e.preventDefault();
 				window.KCFinder = {
-					callBack: function(url) {
+					callBackMultiple: function(url) {
 						copyFilePath(url);
 					}
 				};
@@ -351,7 +350,7 @@
 			$('a[href="evoflbw:files"]').on('click', function(e){
 				e.preventDefault();
 				window.KCFinder = {
-					callBack: function(url) {
+					callBackMultiple: function(url) {
 						copyFilePath(url);
 					}
 				};
