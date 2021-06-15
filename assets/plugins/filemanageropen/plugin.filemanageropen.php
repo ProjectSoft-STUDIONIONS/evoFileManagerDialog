@@ -14,6 +14,7 @@ switch($e->name){
 	case "OnChunkFormRender":
 	case "OnPluginFormRender":
 	case "OnSnipFormRender":
+	case "OnTempFormRender":
 		$browser = $modx->getConfig('which_browser');
 		$media_browser = MODX_MANAGER_URL . 'media/browser/' . $browser . '/browse.php';
 		$js = "assets/plugins/filemanageropen/js/main.js";
