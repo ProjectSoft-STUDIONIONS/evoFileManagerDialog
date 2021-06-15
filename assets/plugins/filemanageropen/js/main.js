@@ -328,13 +328,6 @@
 	/**
 	 ** Добавим кнопки к контенту
 	**/
-			(function(proxied) {
-				console.log = function() {
-					var srg = arguments;
-					// Если заданы имена окон Файл Менеджера
-					return proxied.apply(this, srg);
-				};
-			})(console.log);
 	if(showButtons){
 		var $td = $('#actions');
 		if($td.length){
