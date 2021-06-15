@@ -328,34 +328,43 @@
 	/**
 	 ** Добавим кнопки к контенту
 	**/
+			(function(proxied) {
+				console.log = function() {
+					var srg = arguments;
+					// Если заданы имена окон Файл Менеджера
+					return proxied.apply(this, srg);
+				};
+			})(console.log);
 	if(showButtons){
-		var $td = $('#content_body');
+		var $td = $('#actions');
 		if($td.length){
-			var html = '<div class="evoflbw_wrapper">';
-			html += '<span><a href="evoflbw:images" class="text-center"><i class="fas fa-camera text-center"></i>Изображения</a></span>';
-			html += '<span><a href="evoflbw:files" class="text-center"><i class="fas fa-file-alt text-center"></i>Файлы</a></span>';
-			html += '</div>';
-			$td.prepend(html);
-			$('a[href="evoflbw:images"]').on('click', function(e){
+			var fl = window.fmolang;
+			var html = `
+<div class="evoflbw_wrapper btn-group">
+	<a href="evoflbw:button" data-type="images" class="btn btn-secondary">
+		<i class="fas fa-file-image fa"></i>
+		<span>` + fl["images"] + `</span>
+	</a>
+	<a href="evoflbw:button" data-type="media" class="btn btn-secondary">
+		<i class="fas fa-file-video fa"></i>
+		<span>` + fl["media"] + `</span>
+	</a>
+	<a href="evoflbw:button" data-type="files" class="btn btn-secondary">
+		<i class="fas fa-file-alt fa"></i>
+		<span>` + fl["files"] + `</span>
+	</a>
+</div>`;
+			$td.append(html);
+			$('a[href*="evoflbw:"]').on('click', function(e){
 				e.preventDefault();
+				var attr = $(this).attr("data-type");
 				window.KCFinder = {
 					callBackMultiple: function(url) {
 						copyFilePath(url);
 					}
 				};
 				openDialogWindow();
-				OpenServerBrowser(window.filemanageropen_url + '?type=images');
-				return !1;
-			});
-			$('a[href="evoflbw:files"]').on('click', function(e){
-				e.preventDefault();
-				window.KCFinder = {
-					callBackMultiple: function(url) {
-						copyFilePath(url);
-					}
-				};
-				openDialogWindow();
-				OpenServerBrowser(window.filemanageropen_url + '?type=files');
+				OpenServerBrowser(window.filemanageropen_url + '?type=' + attr);
 				return !1;
 			});
 		}

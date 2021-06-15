@@ -1,3 +1,19 @@
+#actions {
+	display: flex;
+	flex-direction: column;
+}
+#actions .btn-group {
+	z-index: 10;
+}
+#actions > .btn-group {
+	margin-bottom: 0.2em;
+}
+#actions > .btn-group:last-first {
+	margin-bottom: 0em;
+}
+#actions .evoflbw_wrapper.btn-group {
+    z-index: 0;
+}
 #kcfinder_div {
 	display: none;
 	position: fixed;
@@ -22,6 +38,7 @@
 	border-radius: 5px;
 	min-width: 90%;
 	height: 100vh;
+	max-width: 100%;
 }
 #kcfinder_div .kcfinder-header {
 	display: block;
@@ -78,33 +95,4 @@
 	position: relative;
 	border: 0px solid transparent;
 	user-select: none;
-}
-.evoflbw_wrapper {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	margin-bottom: 1rem;
-}
-.evoflbw_wrapper a {
-	user-select: none;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	align-items: center;
-	height: 100%;
-	padding: 0.3rem 1.5rem 0.3rem;
-	text-decoration: none;
-	color: #646b7b;
-	box-shadow: none;
-	transition-duration: .5s;
-	background-color: transparent;
-}
-.evoflbw_wrapper a:hover {
-	color: #373b46;
-	background-color: rgba(93,109,202,0.16);
-}
-.evoflbw_wrapper a .fas {
-	display: inline-block;
-	font-size: 1.5rem;
-	margin-right: 8px;
 }
