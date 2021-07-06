@@ -332,21 +332,22 @@
 		var $td = $('#actions');
 		if($td.length){
 			var fl = window.fmolang;
-			var html = `
-<div class="evoflbw_wrapper btn-group">
-	<a href="evoflbw:button" data-type="images" class="btn btn-secondary">
-		<i class="fas fa-file-image fa"></i>
-		<span>` + fl["images"] + `</span>
-	</a>
-	<a href="evoflbw:button" data-type="media" class="btn btn-secondary">
-		<i class="fas fa-file-video fa"></i>
-		<span>` + fl["media"] + `</span>
-	</a>
-	<a href="evoflbw:button" data-type="files" class="btn btn-secondary">
-		<i class="fas fa-file-alt fa"></i>
-		<span>` + fl["files"] + `</span>
-	</a>
-</div>`;
+			var html = `<div class="evoflbw_wrapper btn-group">`;
+
+			html += `<a href="evoflbw:button" data-type="images" class="btn btn-secondary">
+						<i class="fas fa-file-image fa"></i>
+						<span>` + fl["images"] + `</span>
+					</a>`;
+			html += `<a href="evoflbw:button" data-type="media" class="btn btn-secondary">
+						<i class="fas fa-file-video fa"></i>
+						<span>` + fl["media"] + `</span>
+					</a>`;
+			html += `<a href="evoflbw:button" data-type="files" class="btn btn-secondary">
+						<i class="fas fa-file-alt fa"></i>
+						<span>` + fl["files"] + `</span>
+					</a>`;
+
+			html += `</div>`;
 			$td.append(html);
 			$('a[href*="evoflbw:"]').on('click', function(e){
 				e.preventDefault();

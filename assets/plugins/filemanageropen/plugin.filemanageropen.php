@@ -14,7 +14,9 @@ switch($e->name){
 	case "OnChunkFormRender":
 	case "OnPluginFormRender":
 	case "OnSnipFormRender":
+	//case "OnModFormRender":
 	case "OnTempFormRender":
+		$site_url = $modx->config['site_url'];
 		$browser = $modx->getConfig('which_browser');
 		$media_browser = MODX_MANAGER_URL . 'media/browser/' . $browser . '/browse.php';
 		$js = "assets/plugins/filemanageropen/js/main.js";
@@ -36,25 +38,31 @@ switch($e->name){
 		// Версия файла по времени последнего изменения файла
 		if(is_file(MODX_BASE_PATH . $js))
 		{
-			$js = $js."?".filemtime(MODX_BASE_PATH . $js);
+			$js  = $js  . "?" . filemtime(MODX_BASE_PATH . $js);
 		}
 		if(is_file(MODX_BASE_PATH . $css))
 		{
-			$css = $css. "?" . filemtime(MODX_BASE_PATH . $css);
+			$css = $css . "?" . filemtime(MODX_BASE_PATH . $css);
 		}
 		
 		$params = $e->params;
-		$showAlert = isset($params["show_alert_copy"]) ? ((int)$params["show_alert_copy"] ? "1" : "0") : "1";
-		$showButtons = isset($params["show_buttons"]) ? ((int)$params["show_buttons"] ? "1" : "0") : "1";
+		$showAlert      = isset($params["show_alert_copy"]) ? ((int)$params["show_alert_copy"] ? 1 : 0) : 1;
+		$showButtons    = isset($params["show_buttons"])    ? ((int)$params["show_buttons"]    ? 1 : 0) : 1;
+		$show_image     = isset($params["show_image"])      ? ((int)$params["show_image"]      ? 1 : 0) : 1;
+		$show_file      = isset($params["show_file"])       ? ((int)$params["show_file"]       ? 1 : 0) : 1;
+		$show_media     = isset($params["show_media"])      ? ((int)$params["show_media"]      ? 1 : 0) : 1;
 		$out = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/{$css}\">
 		<script type=\"text/javascript\">
 			window.filemanageropen_url = \"{$media_browser}\";
-			window.filemanageropen_alert = {$showAlert};
-			window.filemanageropen_showbtn = {$showButtons};
+			window.filemanageropen_alert = " . (string)$showAlert . ";
+			window.filemanageropen_showbtn = " . (string)$showButtons . ";
 			window.fmolang = " . json_encode(array(
 				"files"		=> $lang["files"],
 				"images"	=> $lang["images"],
-				"media"		=> $lang["media"]
+				"media"		=> $lang["media"],
+				"showimage"	=> (string)$show_image,
+				"showfile"	=> (string)$show_file,
+				"showmedia"	=> (string)$show_media
 			)) . ";
 		</script>
 		<script type=\"text/javascript\" src=\"/{$js}\"></script>";

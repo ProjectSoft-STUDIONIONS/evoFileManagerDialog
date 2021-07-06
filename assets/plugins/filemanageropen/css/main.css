@@ -96,3 +96,6 @@
 	border: 0px solid transparent;
 	user-select: none;
 }
+h1 {
+	margin-bottom: 1.6rem;
+}
