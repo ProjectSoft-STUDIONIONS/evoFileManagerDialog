@@ -8,14 +8,7 @@ global $manager_language;
 $e = &$modx->event;
 
 switch($e->name){
-	case "OnDocFormRender":
-	case "OnUserFormRender":
-	case "OnWUsrFormRender":
-	case "OnChunkFormRender":
-	case "OnPluginFormRender":
-	case "OnSnipFormRender":
-	//case "OnModFormRender":
-	case "OnTempFormRender":
+	case "OnManagerMainFrameHeaderHTMLBlock":
 		$site_url = $modx->config['site_url'];
 		$browser = $modx->getConfig('which_browser');
 		$media_browser = MODX_MANAGER_URL . 'media/browser/' . $browser . '/browse.php';
@@ -65,7 +58,15 @@ switch($e->name){
 				"showmedia"	=> (string)$show_media
 			)) . ";
 		</script>
-		<script type=\"text/javascript\" src=\"/{$js}\"></script>";
+		<script type=\"text/javascript\">
+			jQuery(document).ready(function(){
+				var scr = jQuery(document.createElement(\"script\"));
+				scr.attr({
+					src: \"/" . $js . "\"
+				});
+				jQuery(\"body\").append(scr);
+			});
+		</script>";
 		$modx->event->output($out);
 		break;
 }
