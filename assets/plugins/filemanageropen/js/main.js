@@ -116,6 +116,9 @@
 		},
 		openDialogWindow = function(){
 			$kcfinderWindow.removeAttr("style");
+			if(!$actions){
+				windowloadCallback();
+			}
 			if($actions.length){
 				rightAction = parseInt($actions.getIntCss('right'));
 			}
