@@ -1,0 +1,9 @@
+*.txt
+*.ini
+*.zip
+*.rar
+*.tag
+*.sublime-workspace
+node_modules
+bower_components
+

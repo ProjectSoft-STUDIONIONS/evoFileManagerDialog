@@ -1,0 +1,24 @@
+{
+	"version": "1.2.5",
+	"name": "evofilemanagerdialog",
+	"evoname": "EvoFileManagerDialog",
+	"description": "Плагин открытия файлменеджера не в новом окне браузера, а во всплывающем окне админки Evolution CMS.",
+	"main": "index.js",
+	"scripts": {
+		"test": "npm i",
+		"build": "node index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog.git"
+	},
+	"author": "Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/issues"
+	},
+	"homepage": "https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog#readme",
+	"dependencies": {
+		"node-zip": "^1.1.1"
+	}
+}

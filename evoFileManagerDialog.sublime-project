@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings":  {
+		"font_size": 12,
+		"tab_size": 4
+	},
+	"build_systems": [
+		{
+			"name": "Полная сборка проекта",
+			"working_dir": "${project_path}",
+			"shell_cmd": "npm run build"
+		}
+	]
+}
