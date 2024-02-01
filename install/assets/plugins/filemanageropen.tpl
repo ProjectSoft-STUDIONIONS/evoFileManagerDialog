@@ -5,7 +5,7 @@
  * Плагин открытия файлменеджера не в новом окне браузера, а во всплывающем окне админки Evolution CMS.
  *
  * @category     plugin
- * @version      1.2.5
+ * @version      1.2.6
  * @package      evo
  * @internal     @events OnManagerMainFrameHeaderHTMLBlock
  * @internal     @modx_category Manager and Admin
@@ -25,7 +25,7 @@
  * Плагин открытия файлменеджера не в новом окне браузера, а во всплывающем окне админки Evolution CMS.
  *
  * @category     plugin
- * @version      1.2.5
+ * @version      1.2.6
  * @package      evo
  * @internal     @events OnManagerMainFrameHeaderHTMLBlock
  * @internal     @modx_category Manager and Admin
