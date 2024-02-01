@@ -13,7 +13,7 @@
  * @internal     @installset base
  * @internal     @disabled 0
  * @homepage     https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog#readme
- * @license      https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/LICENSE MIT License (MIT)
+ * @license      https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/blob/master/LICENSE MIT License (MIT)
  * @reportissues https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/issues
  * @author       Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>
  * @lastupdate   2024-02-01
@@ -33,7 +33,7 @@
  * @internal     @installset base
  * @internal     @disabled 0
  * @homepage     https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog#readme
- * @license      https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/LICENSE MIT License (MIT)
+ * @license      https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/blob/master/LICENSE MIT License (MIT)
  * @reportissues https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/issues
  * @author       Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>
  * @lastupdate   2024-02-01

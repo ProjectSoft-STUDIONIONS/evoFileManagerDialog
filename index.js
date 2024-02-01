@@ -15,7 +15,7 @@ const fs = require('fs'),
 	licensePage = (function(){
 		let arr = homepage.split('#');
 		arr.pop();
-		arr.push('LICENSE');
+		arr.push('blob/master/LICENSE');
 		return arr.join('/');
 	})(),
 	license = pkg.license || "",
