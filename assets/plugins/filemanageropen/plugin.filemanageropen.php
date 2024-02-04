@@ -46,21 +46,22 @@ switch($e->name){
 		$show_image     = isset($params["show_image"])      ? ((int)$params["show_image"]      ? 1 : 0) : 1;
 		$show_file      = isset($params["show_file"])       ? ((int)$params["show_file"]       ? 1 : 0) : 1;
 		$show_media     = isset($params["show_media"])      ? ((int)$params["show_media"]      ? 1 : 0) : 1;
+
+		$temp_lang = array_merge(array(), $lang);
+		/**
+		 * Сюда же добавим опции
+		 */
+		$temp_lang["showimage"] = (string)$show_image;
+		$temp_lang["showfile"] = (string)$show_file;
+		$temp_lang["showmedia"] = (string)$show_media;
+		$temp_lang = json_encode($temp_lang);
+
 		$out = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/{$css}\">
 		<script type=\"text/javascript\">
 			window.filemanageropen_url = \"{$media_browser}\";
 			window.filemanageropen_alert = " . (string)$showAlert . ";
 			window.filemanageropen_showbtn = " . (string)$showButtons . ";
-			window.fmolang = " . json_encode(array(
-				"files"		=> $lang["files"],
-				"images"	=> $lang["images"],
-				"media"		=> $lang["media"],
-				"showimage"	=> (string)$show_image,
-				"showfile"	=> (string)$show_file,
-				"showmedia"	=> (string)$show_media,
-				"copy"		=> $lang["copy"],
-				"nocopy"	=> $lang["nocopy"]
-			)) . ";
+			window.fmolang = " . $temp_lang . ";
 		</script>
 		<script type=\"text/javascript\">
 			jQuery(document).ready(function(){

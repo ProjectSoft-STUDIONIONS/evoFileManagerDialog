@@ -131,10 +131,10 @@ function buildArhive() {
  */
 buildCss(
 	path.normalize(
-		path.join(__dirname, "assets/plugins/filemanageropen/css/main-code.less")
+		path.join(__dirname, "assets/plugins/filemanageropen/css/main.less")
 	),
 	path.normalize(
-		path.join(__dirname, "assets/plugins/filemanageropen/css/main.css")
+		path.join(__dirname, "assets/plugins/filemanageropen/css/main.min.css")
 	),
 	[
 		"-clean-css"
@@ -146,13 +146,13 @@ buildCss(
 	let options = {};
 	fs.writeFileSync(
 		path.normalize(
-			path.join(__dirname, "assets/plugins/filemanageropen/js/main.js")
+			path.join(__dirname, "assets/plugins/filemanageropen/js/main.min.js")
 		),
 		UglifyJS.minify(
 			{
 				"main.js": fs.readFileSync(
 					path.normalize(
-						path.join(__dirname, "assets/plugins/filemanageropen/js/main-code.js")
+						path.join(__dirname, "assets/plugins/filemanageropen/js/main.js")
 					),
 					"utf8"
 				)
