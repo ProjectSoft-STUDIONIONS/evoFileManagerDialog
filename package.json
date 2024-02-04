@@ -19,6 +19,7 @@
 	},
 	"homepage": "https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog#readme",
 	"dependencies": {
-		"node-zip": "^1.1.1"
+		"node-zip": "^1.1.1",
+		"uglify-js": "^3.17.4"
 	}
 }

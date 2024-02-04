@@ -16,9 +16,11 @@ switch($e->name){
 		$css = "assets/plugins/filemanageropen/css/main.css";
 		$lng = isset($manager_language) ? (is_string($manager_language) ? $manager_language : "english") : "english";
 		$lang = array(
-			"files" => "Files",
-			"media" => "Media",
-			"images" => "Images"
+			"files"		=> "Files",
+			"media"		=> "Media",
+			"images"	=> "Images",
+			"copy"		=> "Copied",
+			"nocopy"	=> "Your browser does not support copying to the clipboard"
 		);
 		if(is_file(dirname(__FILE__) . "/lang/" . $lng . ".inc.php")):
 			$langFile = dirname(__FILE__) . "/lang/" . $lng . ".inc.php";
@@ -55,7 +57,9 @@ switch($e->name){
 				"media"		=> $lang["media"],
 				"showimage"	=> (string)$show_image,
 				"showfile"	=> (string)$show_file,
-				"showmedia"	=> (string)$show_media
+				"showmedia"	=> (string)$show_media,
+				"copy"		=> $lang["copy"],
+				"nocopy"	=> $lang["nocopy"]
 			)) . ";
 		</script>
 		<script type=\"text/javascript\">

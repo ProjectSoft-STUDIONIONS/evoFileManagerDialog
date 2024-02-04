@@ -2,6 +2,7 @@ const fs = require('fs'),
 	zip = new require('node-zip')(),
 	path = require('path'),
 	{ promisify } = require('util'),
+	UglifyJS = require("uglify-js"),
 	readdir = promisify(fs.readdir),
 	stat = promisify(fs.stat),
 	pkg = require(path.normalize(__dirname + '/package.json')),
@@ -68,7 +69,8 @@ async function getFiles(dir) {
 		return file;
 	});
 }
-function normalize(arr){
+
+function normalizeFiles(arr){
 	let arrFile = [];
 	for(let a in arr){
 		let old = path.parse(arr[a]);
@@ -80,23 +82,90 @@ function normalize(arr){
 	return arrFile;
 }
 
+async function buildCss(inputCss, outputCss, commands = []) {
+	let command = Array.isArray(commands) ? commands.join(" ") : "";
+	const {exec} = require('child_process');
+	return new Promise((resolve, reject) => {
+		const bat = exec(`lessc "${inputCss}" "${outputCss}" ${command}`, (error, stdout, stderr) => {
+			if (stdout) {
+				if (!stdout.trim()) {
+					reject(`None`);
+				} else {
+					resolve(stdout.trim())
+				}
+			} else if (error) {
+				reject(error);
+			} else if (stderr) {
+				reject(stderr);
+			} else {
+				resolve('compile');
+			}
+		});
+	});
+}
+
 /**
  * Архивируем директории assets и install
  */
-getFiles(path.normalize(path.join(__dirname, 'assets'))).then(async function(result){
-	normalize(result).forEach(function(a, b, c){
-		let fl = zip.folder(`${pkg.evoname}/${a.dir}`);
-		fl.file(a.name, fs.readFileSync(path.normalize(path.join(__dirname, a.dir, a.name))));
-	});
-	getFiles(path.normalize(path.join(__dirname, 'install'))).then(async function(result){
-		normalize(result).forEach(function(a, b, c){
+function buildArhive() {
+	getFiles(path.normalize(path.join(__dirname, 'assets'))).then(async function(result){
+		normalizeFiles(result).forEach(function(a, b, c){
 			let fl = zip.folder(`${pkg.evoname}/${a.dir}`);
 			fl.file(a.name, fs.readFileSync(path.normalize(path.join(__dirname, a.dir, a.name))));
 		});
-		setTimeout(() =>{
-			let data = zip.generate({base64:false, compression:'DEFLATE'});
-			fs.writeFileSync(`${pkg.evoname}.zip`, data, 'binary');
-			console.log(`> SAVE ${pkg.evoname}.zip`);
-		}, 500);
+		getFiles(path.normalize(path.join(__dirname, 'install'))).then(async function(result){
+			normalizeFiles(result).forEach(function(a, b, c){
+				let fl = zip.folder(`${pkg.evoname}/${a.dir}`);
+				fl.file(a.name, fs.readFileSync(path.normalize(path.join(__dirname, a.dir, a.name))));
+			});
+			setTimeout(() =>{
+				let data = zip.generate({base64:false, compression:'DEFLATE'});
+				fs.writeFileSync(`${pkg.evoname}.zip`, data, 'binary');
+				console.log(`> SAVE ${pkg.evoname}.zip`);
+			}, 500);
+		});
 	});
+}
+/**
+ * Собираем CSS
+ */
+buildCss(
+	path.normalize(
+		path.join(__dirname, "assets/plugins/filemanageropen/css/main-code.less")
+	),
+	path.normalize(
+		path.join(__dirname, "assets/plugins/filemanageropen/css/main.css")
+	),
+	[
+		"-clean-css"
+	]
+).then(function(resolve){
+	/**
+	 * Собираем JS
+	 */
+	let options = {};
+	fs.writeFileSync(
+		path.normalize(
+			path.join(__dirname, "assets/plugins/filemanageropen/js/main.js")
+		),
+		UglifyJS.minify(
+			{
+				"main.js": fs.readFileSync(
+					path.normalize(
+						path.join(__dirname, "assets/plugins/filemanageropen/js/main-code.js")
+					),
+					"utf8"
+				)
+			},
+			options
+		).code,
+		"utf8"
+	);
+	/**
+	 * Архивируем
+	 */
+	buildArhive();
+}).catch(function(error){
+	console.log(error);
 });
+
