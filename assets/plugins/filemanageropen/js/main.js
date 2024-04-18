@@ -253,9 +253,20 @@
 			var iframeDocument = $kcfinderFrame[0].contentWindow.document;
 			$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text(iframeDocument.title);
 			$('a[href="kcact:maximize"]', iframeDocument).hide();
+			var callback = function (mutationsList, observer) {
+				$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text(iframeDocument.title);
+			};
+			var observer = new MutationObserver(callback);
+			observer.observe($("title", iframeDocument)[0], {
+				attributes: true,
+				childList: true,
+				subtree: true,
+			});
+			/**
 			$("title", iframeDocument)[0].addEventListener("DOMSubtreeModified", function() {
 				$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text(iframeDocument.title);
 			});
+			*/
 		});
 	}
 	// Переопределяем глобальную функию BrowseServer

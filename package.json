@@ -1,5 +1,5 @@
 {
-	"version": "1.2.6",
+	"version": "1.2.7",
 	"name": "evofilemanagerdialog",
 	"evoname": "EvoFileManagerDialog",
 	"description": "Плагин открытия файлменеджера не в новом окне браузера, а во всплывающем окне админки Evolution CMS.",
@@ -19,6 +19,7 @@
 	},
 	"homepage": "https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog#readme",
 	"dependencies": {
+		"clean-css": "^5.3.3",
 		"node-zip": "^1.1.1",
 		"uglify-js": "^3.17.4"
 	}
