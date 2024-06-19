@@ -1,0 +1,68 @@
+doctype html
+html(lang="ru" prefix="og: http://ogp.me/ns#")
+	head
+		meta(http-equiv="Content-Type" content="text/html; charset=UTF-8")
+		meta(http-equiv="X-UA-Compatible" content="IE=EmulateIE9")
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+		meta(name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE")
+		meta(charset="utf-8")
+		meta(name="yandex-verification" content="ad6b0f0f478e9f72")
+		title= title
+		link(rel="shortcut icon" type="image/x-icon" href="https://" + repo + "/" + page + "/favicon.ico")
+		link(rel="icon" type="image/png" href="https://" + repo + "/" + page + "/favicon.png")
+		meta(name="title" content=title)
+		meta(name="longtitle" content=title)
+		meta(name="keywords" content=keywords)
+		meta(name="description" content=description)
+		meta(name="site_name" content=title)
+		meta(itemprop="image" content="https://" + repo + "/" + page + "/images/" + open_graph.image_16x9)
+		meta(name="short_link" content="https://" + repo + "/" + page + "/")
+		meta(property="og:title" content=title)
+		meta(property="og:description" content=description)
+		meta(property="og:url" content="https://" + repo + "/" + page + "/")
+		meta(property="og:locale" content="ru_RU")
+		meta(property="og:type" content="website")
+		meta(property="og:site_name" content=title)
+		meta(property="og:image" content="https://" + repo + "/" + page + "/images/" + open_graph.image_16x9)
+		meta(property="og:image:width" content=open_graph.image_16x9_width)
+		meta(property="og:image:height" content=open_graph.image_16x9_height)
+		meta(property="og:image:type" content="image/jpeg")
+		meta(property="og:image" content="https://" + repo + "/" + page + "/images/" + open_graph.image_1x1)
+		meta(property="og:image:width" content=open_graph.image_1x1_width)
+		meta(property="og:image:height" content=open_graph.image_1x1_width)
+		meta(property="og:image:type" content="image/jpeg")
+		link(type="text/css" rel="stylesheet" href="https://" + repo + "/css/plugins.css?hash=" + hash)
+		link(type="text/css" rel="stylesheet" href="https://" + repo + "/css/main.css?hash=" + hash)
+	body
+		header
+			.wrapper
+				.github-icons
+					a(href="https://" + repo + "/")
+						img(src="https://" + repo + "/images/" + logotype alt=nickname + " GitHub")
+		main
+			.wrapper
+				.github-icons
+					a(href="https://github.com/" + userName + "/" + page + "/releases/latest" target="_blank")
+						img(src="https://img.shields.io/github/v/release/" + userName + "/" + page + "?style=for-the-badge&color=%23007ec6&label=РЕАЛИЗ" alt="Github Latest radioApp-lite")
+					a(href="https://github.com/" + userName + "/" + page + "/blob/master/LICENSE" target="_blank")
+						img(src="https://img.shields.io/github/license/" + userName + "/" + page + "?style=for-the-badge&color=%2397ca00&label=ЛИЦЕНЗИЯ" alt="Github LICENSE radioApp-lite")
+					a(href="https://github.com/" + userName + "/" + page + "/" target="_blank")
+						img(src="https://img.shields.io/github/repo-size/" + userName + "/" + page + "?style=for-the-badge&color=%23007ec6&label=РАЗМЕР РЕПОЗИТОРИЯ" alt="Github Repo")
+				h1= h1title
+				p
+					|EvoFileManagerDialog это плагин открытия файлменеджера не в новом окне браузера, а во всплывающем окне админки Evolution CMS. (Имхо. Лично меня новое окно браузера раздражает.)
+				p
+					|Так же если в tv уже указан файл и вы хотите его заменить, то файлменеджер откроет окно именно в той директории, в которой находится файл указанный в tv.
+				p
+					|Обрабатывает все tv типа image, files, multiTV и т. п., выбор файлов и изображений в PageBuilder.
+		footer
+			.wrapper
+				span.copyright
+					|Copyright &copy; 
+					= copyright
+				span.developer
+					|Developed by:  
+					a(href="https://github.com/" + userName + "/" target="_blank")= nickname
+		include yandex.pug
+		script(src="https://" + repo + "/js/plugins.js?hash=" + hash type="text/javascript")
+		script(src="https://" + repo + "/js/main.js?hash=" + hash type="text/javascript")

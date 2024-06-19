@@ -5,8 +5,9 @@
 	"description": "Плагин открытия файлменеджера не в новом окне браузера, а во всплывающем окне админки Evolution CMS.",
 	"main": "index.js",
 	"scripts": {
+		"preinstall": "npm i -g less pug-cli",
 		"test": "npm i",
-		"build": "node index.js"
+		"build": "grunt -v"
 	},
 	"repository": {
 		"type": "git",
@@ -19,8 +20,12 @@
 	},
 	"homepage": "https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog#readme",
 	"dependencies": {
-		"clean-css": "^5.3.3",
-		"node-zip": "^1.1.1",
-		"uglify-js": "^3.17.4"
+		"grunt": "latest",
+		"grunt-contrib-cssmin": "latest",
+		"grunt-contrib-imagemin": "latest",
+		"grunt-contrib-less": "latest",
+		"grunt-contrib-pug": "latest",
+		"load-grunt-tasks": "latest",
+		"time-grunt": "latest"
 	}
 }
