@@ -14,6 +14,7 @@ module.exports = function(grunt){
 		switch(process.env.GRUNT_TASK){
 			default:
 				return [
+					'imagemin',
 					'pug'
 				];
 		}
@@ -21,6 +22,29 @@ module.exports = function(grunt){
 	grunt.initConfig({
 		globalConfig : gc,
 		pkg : pkg,
+		imagemin: {
+			files: {
+				options: {
+					optimizationLevel: 3,
+					svgoPlugins: [
+						{
+							removeViewBox: false
+						}
+					]
+				},
+				files: [
+					{
+						expand: true,
+						flatten : true,
+						src: [
+							'pages/images/*.{png,jpg,gif}'
+						],
+						dest: 'docs/images/',
+						filter: 'isFile'
+					}
+				],
+			}
+		},
 		pug: {
 			files: {
 				options: {
@@ -42,12 +66,12 @@ module.exports = function(grunt){
 							"logotype": "projectsoft.png",
 							"copyright": "2008 - all right reserved",
 							"open_graph": {
-								"image_16x9": "evofilemanager.png",
-								"image_16x9_width": "499",
-								"image_16x9_height": "392",
-								"image_1x1": "evofilemanager.png",
-								"image_1x1_width": "499",
-								"image_1x1_height": "392",
+								"image_16x9": "evofilemanagerdialog.png",
+								"image_16x9_width": "1918",
+								"image_16x9_height": "965",
+								"image_1x1": "evofilemanagerdialog-400.png",
+								"image_1x1_width": "400",
+								"image_1x1_height": "201",
 							}
 						}
 					}
