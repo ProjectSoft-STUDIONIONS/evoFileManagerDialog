@@ -1,7 +1,7 @@
 [main]
 host = https://app.transifex.com
 
-[o:evo-file-manager-dialog:p:evo-main:r:core_global]
+[o:projectsoft:p:evo-filemanager-dialog:r:core_global]
 file_filter   = assets/plugins/filemanageropen/lang/<lang>.inc.php
 source_file   = assets/plugins/filemanageropen/lang/english.inc.php
 type          = PHP_ALT_ARRAY
