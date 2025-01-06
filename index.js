@@ -124,7 +124,7 @@ function buildArhive() {
 			setTimeout(() =>{
 				let data = zip.generate({base64:false, compression:'DEFLATE'});
 				fs.writeFileSync(`${pkg.evoname}.zip`, data, 'binary');
-				console.log(`> SAVE ${pkg.evoname}.zip`);
+				console.log(`>`, `SAVE ${pkg.evoname}.zip`);
 			}, 500);
 		});
 	});
@@ -137,37 +137,55 @@ buildCss(
 		path.join(__dirname, "assets/plugins/filemanageropen/css/main.less")
 	),
 	path.normalize(
-		path.join(__dirname, "assets/plugins/filemanageropen/css/main.min.css")
+		path.join(__dirname, "assets/plugins/filemanageropen/css/main.css")
 	),
-	[
-		"-clean-css"
-	]
+	[]
 ).then(function(resolve){
+	console.log(`>`, "CSS", resolve);
 	/**
-	 * Собираем JS
+	 * Собираем минимизированный CSS
 	 */
-	let options = {};
-	fs.writeFileSync(
+	buildCss(
 		path.normalize(
-			path.join(__dirname, "assets/plugins/filemanageropen/js/main.min.js")
+			path.join(__dirname, "assets/plugins/filemanageropen/css/main.less")
 		),
-		UglifyJS.minify(
-			{
-				"main.js": fs.readFileSync(
-					path.normalize(
-						path.join(__dirname, "assets/plugins/filemanageropen/js/main.js")
-					),
-					"utf8"
-				)
-			},
-			options
-		).code,
-		"utf8"
-	);
-	/**
-	 * Архивируем
-	 */
-	buildArhive();
+		path.normalize(
+			path.join(__dirname, "assets/plugins/filemanageropen/css/main.min.css")
+		),
+		[
+			"-clean-css"
+		]
+	).then(function(resolve) {
+		console.log(`>`, "CSS minify", resolve);
+		/**
+		 * Собираем JS
+		 */
+		let options = {};
+		fs.writeFileSync(
+			path.normalize(
+				path.join(__dirname, "assets/plugins/filemanageropen/js/main.min.js")
+			),
+			UglifyJS.minify(
+				{
+					"main.js": fs.readFileSync(
+						path.normalize(
+							path.join(__dirname, "assets/plugins/filemanageropen/js/main.js")
+						),
+						"utf8"
+					)
+				},
+				options
+			).code,
+			"utf8"
+		);
+		console.log(`>`, "JS compile");
+		/**
+		 * Архивируем
+		 */
+		buildArhive();
+	}).catch(function(error){
+		console.log(error);
+	});
 }).catch(function(error){
 	console.log(error);
 });

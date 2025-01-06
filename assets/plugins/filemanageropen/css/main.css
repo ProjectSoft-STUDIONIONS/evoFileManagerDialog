@@ -1,1 +1,107 @@
-@charset "UTF-8";#actions{display:flex;flex-direction:column}#actions .btn-group{z-index:10}#actions>.btn-group{margin-bottom:.2em}#actions>.btn-group:last-first{margin-bottom:0}#actions .evoflbw_wrapper.btn-group{z-index:0}#kcfinder_div{display:none;position:fixed;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:rgba(138,138,138,.4);padding:1px;z-index:99999999999;user-select:none;flex-direction:column;align-items:center;justify-content:center}#kcfinder_div .kcfinder-window{background-color:#fff;position:fixed;border-radius:5px;min-width:90%;height:100vh;max-width:100%}#kcfinder_div .kcfinder-window .kcfinder-body{position:relative;overflow:hidden;height:calc(100% - 48px);padding:0 5px 5px 5px}#kcfinder_div .kcfinder-header{display:block;border-spacing:0;padding:10px 5px 0 5px;font-weight:700;font-size:18px;width:100%;max-width:100%;white-space:nowrap;overflow:hidden;border-bottom:1px solid #ccc;cursor:move}#kcfinder_div .kcfinder-header>span{display:inline-block;vertical-align:top;line-height:1;height:25px}#kcfinder_div .kcfinder-header .kcfinder-header-title{width:calc(100% - 40px);overflow:hidden;text-overflow:ellipsis;text-align:left}#kcfinder_div .kcfinder-header .kcfinder-header-close{padding:5px;cursor:pointer;text-align:center;width:35px;font-size:40px;line-height:.25;float:right}#kcfinder-frame{position:relative;height:100%;width:100%;overflow:hidden;border-left:1px solid #ccc;border-right:1px solid #ccc;border-bottom:1px solid #ccc}#kcfinder-frame iframe{height:100%;width:100%;position:relative;border:0 solid transparent;user-select:none}h1{margin-bottom:1.6rem}
+@charset "UTF-8";
+/*
+ * 
+ * Стили кнопок в блоке действий ресурса
+ * Стили окна файлменеджера
+ * 
+ */
+#actions {
+  display: flex;
+  flex-direction: column;
+}
+#actions .btn-group {
+  z-index: 10;
+}
+#actions > .btn-group {
+  margin-bottom: 0.2em;
+}
+#actions > .btn-group:last-first {
+  margin-bottom: 0em;
+}
+#actions .evoflbw_wrapper.btn-group {
+  z-index: 0;
+}
+#kcfinder_div {
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(138, 138, 138, 0.4);
+  padding: 1px;
+  z-index: 99999999999;
+  user-select: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#kcfinder_div .kcfinder-window {
+  background-color: #fff;
+  position: fixed;
+  border-radius: 5px;
+  min-width: 90%;
+  height: 100vh;
+  max-width: 100%;
+}
+#kcfinder_div .kcfinder-window .kcfinder-body {
+  position: relative;
+  overflow: hidden;
+  height: calc(100% - 48px);
+  padding: 0px 5px 5px 5px;
+}
+#kcfinder_div .kcfinder-header {
+  display: block;
+  border-spacing: 0px;
+  padding: 10px 5px 0px 5px;
+  font-weight: bold;
+  font-size: 18px;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  border-bottom: 1px solid #ccc;
+  cursor: move;
+}
+#kcfinder_div .kcfinder-header > span {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 1;
+  height: 25px;
+}
+#kcfinder_div .kcfinder-header .kcfinder-header-title {
+  width: calc(100% - 40px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+#kcfinder_div .kcfinder-header .kcfinder-header-close {
+  padding: 5px;
+  cursor: pointer;
+  text-align: center;
+  width: 35px;
+  font-size: 40px;
+  line-height: 0.25;
+  float: right;
+}
+#kcfinder-frame {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+#kcfinder-frame iframe {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border: 0px solid transparent;
+  user-select: none;
+}
+h1 {
+  margin-bottom: 1.6rem;
+}
