@@ -6,7 +6,9 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "npm i",
-		"build": "node index.js"
+		"inst": "npm i",
+		"build": "node index.js",
+		"preinstall": "npm i -g less less-plugin-clean-css"
 	},
 	"repository": {
 		"type": "git",

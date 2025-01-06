@@ -11,9 +11,10 @@
 	},
 	"build_systems": [
 		{
-			"name": "Полная сборка проекта",
+			"name": "Сборка проекта",
 			"working_dir": "${project_path}",
-			"shell_cmd": "npm run build"
+			"cmd": ["start", "/wait", "npm", "run", "build"],
+			"shell": true
 		}
 	]
 }

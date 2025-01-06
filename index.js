@@ -52,8 +52,11 @@ const fs = require('fs'),
 let readme = fs.readFileSync(path.normalize(path.join(__dirname, '.readme.md')));
 fs.writeFileSync(path.normalize(path.join(__dirname, 'README.md')), `${readmeHeader}\n${readme}`, {encoding: 'utf8'});
 fs.writeFileSync(path.normalize(path.join(__dirname, 'install', 'assets', 'plugins', 'filemanageropen.tpl')), tpl, {encoding: 'utf8'});
+/**
+ * Удаляем это
 zip.folder(evoname).file('LICENSE', fs.readFileSync(path.normalize(path.join(__dirname, 'LICENSE'))));
 zip.folder(evoname).file('README.md', fs.readFileSync(path.normalize(path.join(__dirname, 'README.md'))));
+ */
 
 /**
  * Сборка архива
