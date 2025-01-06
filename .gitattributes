@@ -1,0 +1,27 @@
+* text=auto
+
+**/*.html text eol=lf
+**/*.css text eol=lf
+**/*.js text eol=lf
+**/*.svg text eol=lf
+**/*.tpl text eol=lf
+**/*.pug text eol=lf
+**/*.less text eol=lf
+**/*.php text eol=lf
+
+/.editorconfig export-ignore
+/.github export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.npmrc export-ignore
+/.readme.md export-ignore
+/*.sublime-* export-ignore
+/package.json export-ignore
+/package-lock.json export-ignore
+/LICENSE export-ignore
+/README.md export-ignore
+/index.js export-ignore
+/*.zip export-ignore
+/*.inf export-ignore
+/*.ini export-ignore
+/*.ico export-ignore
