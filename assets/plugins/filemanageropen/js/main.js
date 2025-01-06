@@ -147,7 +147,7 @@
 								window.KCFinder.callBackMultiple = fn;
 							}
 							window.KCFinder.callBack = fn;
-						})(window.KCFinder.callBackMultiple||window.KCFinder.callBack);
+						})(window.KCFinder.callBackMultiple || window.KCFinder.callBack);
 						OpenServerBrowser(arguments[0]);
 					}else{
 						// Иначе работает метод window.open, как и должно быть.
@@ -231,7 +231,7 @@
 			$body.css({
 				"marginRight": w3+'px'
 			});
-			$actions.css({"right": rightAction+w3+"px"});
+			$actions.css({"right": rightAction + w3 + "px"});
 		}
 		
 		$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text("FileManager");
@@ -301,7 +301,7 @@
 					if(field.length){
 						field.val(url);
 						img.attr({
-							src: "/"+url
+							src: "/" + url
 						})
 						SetUrlChange(field[0]);
 					}
