@@ -1,9 +1,0 @@
-[main]
-host = https://app.transifex.com
-
-[o:projectsoft:p:evo-filemanager-dialog:r:core_global]
-file_filter   = assets/plugins/filemanageropen/lang/<lang>.inc.php
-source_file   = assets/plugins/filemanageropen/lang/english.inc.php
-type          = PHP_ALT_ARRAY
-minimum_perc  = 0
-resource_name = core_global
