@@ -165,9 +165,6 @@
 			if(input){
 				value = input.value.replace(/assets\//g, "");
 				path = value.replace(/^(.+?\/)((\.\.\/)?[^\/]+)$/, '$1');
-				console.log('Есть');
-			}else{
-				console.log('Нет');
 			}
 			if(path!=""){
 				dir += "&dir="+path;
@@ -274,7 +271,6 @@
 	}
 	// Переопределяем глобальную функию BrowseServer
 	window.BrowseServer = function(ctrl) {
-		console.log("BrowseServer", ctrl);
 		openDialogWindow();
 		var dir = "";
 		if($kcfinderBlock.length){
@@ -296,7 +292,6 @@
 				}
 			};
 			dir = directory(ctrl);
-			console.log("BrowseServer", "Есть");
 		}else{
 			window.KCFinder = {
 				callBack: function(url) {
@@ -313,14 +308,12 @@
 					clearBodyStyle($body, $actions);
 				}
 			};
-			dir = directory();	
-			console.log("BrowseServer", "Нет");
+			dir = directory();
 		}
 		OpenServerBrowser(window.filemanageropen_url + '?type=images' + dir);
 	}
 	// Переопределяем глобальную функию BrowseFileServer
 	window.BrowseFileServer = function(ctrl) {
-		console.log("BrowseFileServer", ctrl);
 		openDialogWindow();
 		lastFileCtrl = ctrl;
 		if($kcfinderBlock.length){

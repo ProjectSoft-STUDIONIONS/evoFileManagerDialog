@@ -33,11 +33,11 @@ switch($e->name){
 		// Версия файла по времени последнего изменения файла
 		if(is_file(MODX_BASE_PATH . $js))
 		{
-			$js  = $js  . "?" . filemtime(MODX_BASE_PATH . $js);
+			$js  = $js  . "?" . time();//filemtime(MODX_BASE_PATH . $js);
 		}
 		if(is_file(MODX_BASE_PATH . $css))
 		{
-			$css = $css . "?" . filemtime(MODX_BASE_PATH . $css);
+			$css = $css . "?" . time();//filemtime(MODX_BASE_PATH . $css);
 		}
 		
 		$params = $e->params;
