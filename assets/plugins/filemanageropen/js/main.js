@@ -165,6 +165,9 @@
 			if(input){
 				value = input.value.replace(/assets\//g, "");
 				path = value.replace(/^(.+?\/)((\.\.\/)?[^\/]+)$/, '$1');
+				console.log('Есть');
+			}else{
+				console.log('Нет');
 			}
 			if(path!=""){
 				dir += "&dir="+path;
