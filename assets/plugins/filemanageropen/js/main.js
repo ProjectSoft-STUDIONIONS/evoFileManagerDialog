@@ -274,6 +274,7 @@
 	}
 	// Переопределяем глобальную функию BrowseServer
 	window.BrowseServer = function(ctrl) {
+		console.log("BrowseServer", ctrl);
 		openDialogWindow();
 		var dir = "";
 		if($kcfinderBlock.length){
@@ -295,6 +296,7 @@
 				}
 			};
 			dir = directory(ctrl);
+			console.log("BrowseServer", "Есть");
 		}else{
 			window.KCFinder = {
 				callBack: function(url) {
@@ -312,11 +314,13 @@
 				}
 			};
 			dir = directory();	
+			console.log("BrowseServer", "Нет");
 		}
 		OpenServerBrowser(window.filemanageropen_url + '?type=images' + dir);
 	}
 	// Переопределяем глобальную функию BrowseFileServer
 	window.BrowseFileServer = function(ctrl) {
+		console.log("BrowseFileServer", ctrl);
 		openDialogWindow();
 		lastFileCtrl = ctrl;
 		if($kcfinderBlock.length){
