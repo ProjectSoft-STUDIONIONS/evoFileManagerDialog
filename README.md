@@ -1,6 +1,6 @@
 | Название |  Автор | Дата создания | Дата обновления |
 | --- | --- | --- | --- |
-| EvoFileManagerDialog Evolution CMS | Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru> | 2017-11-24  | 2025-02-22 |
+| EvoFileManagerDialog Evolution CMS | Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru> | 2017-11-24  | 2026-02-02 |
 
 # EvoFileManagerDialog
 

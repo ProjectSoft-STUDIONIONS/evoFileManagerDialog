@@ -21,6 +21,12 @@
 #actions .evoflbw_wrapper.btn-group {
   z-index: 0;
 }
+.light #actions .evoflbw_wrapper.btn-group .btn-secondary:not(:disabled):not(.disabled):focus {
+  color: #000;
+}
+.light #actions .evoflbw_wrapper.btn-group .btn-secondary:not(:disabled):not(.disabled):focus:active {
+  color: #fff;
+}
 #kcfinder_div {
   display: none;
   position: fixed;

@@ -122,12 +122,14 @@
 			if($actions.length){
 				rightAction = parseInt($actions.getIntCss('right'));
 			}
-			$(".kcfinder-window", $kcfinderBlock).Drags({
-				handler: '.kcfinder-header',
-				left: '30px',
-				top: '30px',
-				opacity: .85
-			});
+			setTimeout(() => {
+				$(".kcfinder-window", $kcfinderBlock).Drags({
+					handler: '.kcfinder-header',
+					left: '30px',
+					top: '30px',
+					opacity: .85
+				});
+			}, 100);
 		},
 		window_init = function(){
 			windowloadCallback();

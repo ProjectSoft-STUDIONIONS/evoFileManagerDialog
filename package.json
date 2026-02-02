@@ -1,5 +1,5 @@
 {
-	"version": "1.2.8",
+	"version": "1.2.9",
 	"name": "evofilemanagerdialog",
 	"evoname": "EvoFileManagerDialog",
 	"description": "Плагин открытия файлменеджера не в новом окне браузера, а во всплывающем окне админки Evolution CMS.",

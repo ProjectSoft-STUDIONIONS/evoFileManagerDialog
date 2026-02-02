@@ -14,7 +14,11 @@ switch($e->name){
 		$media_browser = MODX_MANAGER_URL . 'media/browser/' . $browser . '/browse.php';
 		$js = "assets/plugins/filemanageropen/js/main.js";
 		$css = "assets/plugins/filemanageropen/css/main.css";
+		// Evo3
+		!isset($manager_language) && $manager_language = $modx->config["manager_language"];
+		// Evo 1.4
 		$lng = isset($manager_language) ? (is_string($manager_language) ? $manager_language : "english") : "english";
+
 		$lang = array(
 			"files"		=> "Files",
 			"media"		=> "Media",
@@ -33,11 +37,11 @@ switch($e->name){
 		// Версия файла по времени последнего изменения файла
 		if(is_file(MODX_BASE_PATH . $js))
 		{
-			$js  = $js  . "?" . time();//filemtime(MODX_BASE_PATH . $js);
+			$js  = $js  . "?" . filemtime(MODX_BASE_PATH . $js);
 		}
 		if(is_file(MODX_BASE_PATH . $css))
 		{
-			$css = $css . "?" . time();//filemtime(MODX_BASE_PATH . $css);
+			$css = $css . "?" . filemtime(MODX_BASE_PATH . $css);
 		}
 		
 		$params = $e->params;
