@@ -155,6 +155,7 @@
 						if(arguments[1] == 'gener') {
 							// Вырубаем открытие в новом окне шаблоны, тв-параметры, чанки, сниппеты, плагины, модули.
 							let evoMod = window.modx || wimdow.parent.modx;
+							// Открываеи через API modx
 							modx.popup(
 								{
 									url: window.location.origin + window.location.pathname + srg[0],
@@ -168,10 +169,10 @@
 									hover: 0,
 									resize: !0,
 									overlay: 1,
-									overlayclose:1,
+									overlayclose: 1,
 									onclose: function() {
 										if(typeof reloadElementsInTree == 'function'){
-											setTimeout(reloadElementsInTree, 500);
+											setTimeout(reloadElementsInTree, 400);
 										}
 									},
 									wrap: document.body

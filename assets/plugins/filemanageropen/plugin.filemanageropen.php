@@ -5,6 +5,7 @@
 */
 if(!defined('MODX_BASE_PATH')){die('What are you doing? Get out of here!');}
 global $manager_language;
+
 $e = &$modx->event;
 
 switch($e->name){
@@ -27,6 +28,7 @@ switch($e->name){
 			"copy"		=> "Copied",
 			"nocopy"	=> "Your browser does not support copying to the clipboard"
 		);
+
 		if(is_file(dirname(__FILE__) . "/lang/" . $lng . ".inc.php")):
 			$langFile = dirname(__FILE__) . "/lang/" . $lng . ".inc.php";
 		else:
