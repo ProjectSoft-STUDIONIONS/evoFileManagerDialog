@@ -8,6 +8,7 @@ global $manager_language;
 $e = &$modx->event;
 
 switch($e->name){
+	case "OnManagerTopPrerender":
 	case "OnManagerMainFrameHeaderHTMLBlock":
 		$site_url = $modx->config['site_url'];
 		$browser = $modx->getConfig('which_browser');
