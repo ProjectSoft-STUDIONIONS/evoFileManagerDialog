@@ -1,4 +1,4 @@
-name: Lint source code
+name: Build EvoFileManagerDialog
 on:
   release:
     types: [ created ]
