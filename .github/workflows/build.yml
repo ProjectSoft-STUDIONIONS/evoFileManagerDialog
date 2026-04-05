@@ -25,6 +25,7 @@ jobs:
         with:
           author_name: ProjectSoft-STUDIONIONS
           author_email: projectsoft2009@yandex.ru
+          message: 'Update Build ${{ github.ref_name }}'
           push: origin master --force
           tag: ${{ github.ref_name }} --force
           tag_push: '--force'
