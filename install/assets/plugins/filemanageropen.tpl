@@ -7,7 +7,7 @@
  * @category     plugin
  * @version      1.2.9
  * @package      evo
- * @internal     @events OnManagerMainFrameHeaderHTMLBlock
+ * @internal     @events OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
  * @internal     @modx_category Manager and Admin
  * @internal     @properties &show_buttons=Показать кнопки файлменеджера в ресурсе;list;0,1;1 &show_alert_copy=Показать сообщение о копировании пути в FileManager;list;0,1;0
  * @internal     @installset base
@@ -27,7 +27,7 @@
  * @category     plugin
  * @version      1.2.9
  * @package      evo
- * @internal     @events OnManagerMainFrameHeaderHTMLBlock
+ * @internal     @events OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
  * @internal     @modx_category Manager and Admin
  * @internal     @properties &show_buttons=Показать кнопки файлменеджера в ресурсе;list;0,1;1 &show_alert_copy=Показать сообщение о копировании пути в FileManager;list;0,1;0
  * @internal     @installset base
