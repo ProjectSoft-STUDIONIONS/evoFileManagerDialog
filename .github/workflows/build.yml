@@ -5,7 +5,7 @@ on:
 
 jobs:
   run:
-    name: Lint with ESLint
+    name: Build EvoFileManagerDialog
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
