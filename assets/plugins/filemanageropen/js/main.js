@@ -152,8 +152,35 @@
 						})(window.KCFinder.callBackMultiple || window.KCFinder.callBack);
 						OpenServerBrowser(arguments[0]);
 					}else{
-						// Иначе работает метод window.open, как и должно быть.
-						return proxied.apply(this, srg);
+						if(arguments[1] == 'gener') {
+							// Вырубаем открытие в новом окне шаблоны, тв-параметры, чанки, сниппеты, плагины, модули.
+							let evoMod = window.modx || wimdow.parent.modx;
+							modx.popup(
+								{
+									url: window.location.origin + window.location.pathname + srg[0],
+									title: "gener",
+									icon: 'fa fa-external-link',
+									iframe: 'iframe',
+									position: 'center center',
+									width: '80%',
+									height: '80%',
+									hide: 0,
+									hover: 0,
+									resize: !0,
+									overlay: 1,
+									overlayclose:1,
+									onclose: function() {
+										if(typeof reloadElementsInTree == 'function'){
+											setTimeout(reloadElementsInTree, 500);
+										}
+									},
+									wrap: document.body
+								}
+							);
+						}else{
+							// Иначе работает метод window.open, как и должно быть.
+							return proxied.apply(this, srg);
+						}
 					}
 				};
 			})(window.open);
