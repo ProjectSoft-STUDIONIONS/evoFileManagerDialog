@@ -1,0 +1,27 @@
+name: Lint source code
+on: push
+
+jobs:
+  run:
+    name: Lint with ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+
+      - name: Install dependencies
+        run: npm run inst
+
+      - name: Update source code
+        run: npm run build
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v10
+        with:
+          author_name: ProjectSoft-STUDIONIONS
+          author_email: projectsoft2009@yandex.ru
+          message: 'Update'
+          add: '**/*.js'
