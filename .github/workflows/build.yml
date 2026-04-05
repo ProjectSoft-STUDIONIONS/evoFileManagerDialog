@@ -26,11 +26,11 @@ jobs:
           author_name: ProjectSoft-STUDIONIONS
           author_email: projectsoft2009@yandex.ru
           add: |
-            - **/*.js
-            - **/*.css
-            - **/*.less
-            - **/*.php
-            - **/*.tpl
+            **/*.js
+            **/*.css
+            **/*.less
+            **/*.php
+            **/*.tpl
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
