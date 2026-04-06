@@ -6,7 +6,7 @@
 		}
 	],
 	"settings":  {
-		"font_size": 12,
+		"font_size": 16,
 		"tab_size": 4
 	},
 	"build_systems": [

@@ -21,7 +21,9 @@
 	},
 	"homepage": "https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog#readme",
 	"dependencies": {
+		"chalk": "^4.1.2",
 		"clean-css": "^5.3.3",
+		"js-cookie": "^3.0.5",
 		"node-zip": "^1.1.1",
 		"uglify-js": "^3.17.4"
 	}

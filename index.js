@@ -5,6 +5,7 @@ const fs = require('fs'),
 	UglifyJS = require("uglify-js"),
 	readdir = promisify(fs.readdir),
 	stat = promisify(fs.stat),
+	chalk = require("chalk"),
 	pkg = require(path.normalize(__dirname + '/package.json')),
 	version = pkg.version || "",
 	evoname = pkg.evoname || "",
@@ -45,13 +46,15 @@ const fs = require('fs'),
 | --- | --- | --- | --- |
 | ${evoname} Evolution CMS | ${author} | 2017-11-24  | ${today} |
 `;
-
+const pd = 5;
 /**
  * Сборка шаблона установки
  */
 let readme = fs.readFileSync(path.normalize(path.join(__dirname, '.readme.md')));
 fs.writeFileSync(path.normalize(path.join(__dirname, 'README.md')), `${readmeHeader}\n${readme}`, {encoding: 'utf8'});
+console.log('>', 'SAVE'.padEnd(pd, " "), "->", chalk.cyan('README.md'));
 fs.writeFileSync(path.normalize(path.join(__dirname, 'install', 'assets', 'plugins', 'filemanageropen.tpl')), tpl, {encoding: 'utf8'});
+console.log('>', 'SAVE'.padEnd(pd, " "), "->", chalk.cyan(path.normalize(path.join('install', 'assets', 'plugins', 'filemanageropen.tpl'))));
 /**
  * Удаляем это
 zip.folder(evoname).file('LICENSE', fs.readFileSync(path.normalize(path.join(__dirname, 'LICENSE'))));
@@ -101,7 +104,7 @@ async function buildCss(inputCss, outputCss, commands = []) {
 			} else if (stderr) {
 				reject(stderr);
 			} else {
-				resolve('compile');
+				resolve(chalk.cyan('compile'));
 			}
 		});
 	});
@@ -124,7 +127,7 @@ function buildArhive() {
 			setTimeout(() =>{
 				let data = zip.generate({base64:false, compression:'DEFLATE'});
 				fs.writeFileSync(`${pkg.evoname}.zip`, data, 'binary');
-				console.log(`>`, `SAVE ${pkg.evoname}.zip`);
+				console.log(`>`, `SAVE`.padEnd(pd, " "), "->", chalk.yellowBright(`${pkg.evoname}.zip`));
 			}, 500);
 		});
 	});
@@ -141,7 +144,7 @@ buildCss(
 	),
 	[]
 ).then(function(resolve){
-	console.log(`>`, "CSS", resolve);
+	console.log(`>`, "LESS".padEnd(pd, " "), "->", resolve);
 	/**
 	 * Собираем минимизированный CSS
 	 */
@@ -156,7 +159,7 @@ buildCss(
 			"-clean-css"
 		]
 	).then(function(resolve) {
-		console.log(`>`, "CSS minify", resolve);
+		console.log(`>`, "CSS".padEnd(pd, " "), "->", chalk.cyan("minify"), resolve);
 		/**
 		 * Собираем JS
 		 */
@@ -167,6 +170,12 @@ buildCss(
 			),
 			UglifyJS.minify(
 				{
+					"cookie.js": fs.readFileSync(
+						path.normalize(
+							path.join(__dirname, "node_modules/js-cookie/dist/js.cookie.js")
+						),
+						"utf8"
+					),
 					"main.js": fs.readFileSync(
 						path.normalize(
 							path.join(__dirname, "assets/plugins/filemanageropen/js/main.js")
@@ -178,15 +187,14 @@ buildCss(
 			).code,
 			"utf8"
 		);
-		console.log(`>`, "JS compile");
+		console.log(`>`, 'JS'.padEnd(pd, " "), "->", chalk.cyan("minify compile"));
 		/**
 		 * Архивируем
 		 */
 		buildArhive();
 	}).catch(function(error){
-		console.log(error);
+		console.log(chalk.red(error));
 	});
 }).catch(function(error){
-	console.log(error);
+	console.log(chalk.red(error));
 });
-

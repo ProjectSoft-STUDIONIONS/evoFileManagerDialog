@@ -14,8 +14,8 @@ switch($e->name){
 		$site_url = $modx->config['site_url'];
 		$browser = $modx->getConfig('which_browser');
 		$media_browser = MODX_MANAGER_URL . 'media/browser/' . $browser . '/browse.php';
-		$js = "assets/plugins/filemanageropen/js/main.js";
-		$css = "assets/plugins/filemanageropen/css/main.css";
+		$js = "assets/plugins/filemanageropen/js/main.min.js";
+		$css = "assets/plugins/filemanageropen/css/main.min.css";
 		// Evo3
 		!isset($manager_language) && $manager_language = $modx->config["manager_language"];
 		// Evo 1.4

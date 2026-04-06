@@ -1,138 +1,11 @@
-;(function($) {
-	$.extend($.fn, {
-		getIntCss: function(key) {
-			var v = parseInt(this.css(key));
-			if (isNaN(v))
-				return false;
-			return v;
-		}
-	});
-	$.fn.Drags = function(opts) {
-		var ps = $.extend({
-			zIndex: 20,
-			opacity: .7,
-			handler: null,
-			onMove: function() { },
-			onDrop: function() { }
-		}, opts);
-		var dragndrop = {
-			drag: function(e) {
-				e.preventDefault();
-				var dragData = e.data.dragData;
-				dragData.target.css({
-					left: dragData.left + e.pageX - dragData.offLeft,
-					top: dragData.top + e.pageY - dragData.offTop
-				});
-				dragData.onMove(e);
-				return !1;
-			},
-			drop: function(e) {
-				var dragData = e.data.dragData;
-				dragData.target.css(dragData.oldCss);
-				dragData.onDrop(e);
-				$(dragData.target).parent().unbind('mousemove', dragndrop.drag).unbind('mouseup', dragndrop.drop);
-			}
-		}
-		return this.each(function() {
-			var me = this,
-				handler = null;
-			if (typeof ps.handler == 'undefined' || ps.handler == null)
-				handler = $(me);
-			else
-				handler = (typeof ps.handler == 'string' ? $(ps.handler, this) : ps.handle);
-			handler.bind('mousedown', { e: me }, function(s) {
-				var target = $(s.data.e),
-					oldCss = {},
-					dragData = {};
-				if (target.css('position') != 'absolute') {
-					try {
-						target.position(oldCss);
-					} catch (ex) { }
-					target.css('position', 'absolute');
-				};
-				oldCss.opacity = target.getIntCss('opacity') || 1;
-				dragData = {
-					left: oldCss.left || target.getIntCss('left') || 0,
-					top: oldCss.top || target.getIntCss('top') || 0,
-					width: target.width() || target.getIntCss('width'),
-					height: target.height() || target.getIntCss('height'),
-					offLeft: s.pageX,
-					offTop: s.pageY,
-					oldCss: oldCss,
-					onMove: ps.onMove,
-					onDrop: ps.onDrop,
-					handler: handler,
-					target: target
-				}
-				target.css({
-					'opacity':ps.opacity
-				});
-				$(me).parent().bind('mousemove', { dragData: dragData }, dragndrop.drag).bind('mouseup', { dragData: dragData }, dragndrop.drop);
-			});
-		});
-	}
-})(jQuery);
-
 ;(function(document, window, $){
 	window.lastImageCtrl = '';
 	window.lastFileCtrl = '';
-	var $kcfinderWindow = $('<div class="kcfinder-window"><div class="kcfinder-header"><span class="kcfinder-header-title">File Manager</span><span id="kcfinder-close" class="kcfinder-header-close">×</span></div><div class="kcfinder-body"><div id="kcfinder-frame"></div></div></div>'),
-		currentWin = window,
-		$kcfinderBlock,
-		$kcfinderFrameBlock,
-		$closeBtn,
-		$kcfinderFrame,
-		$body,
+	var currentWin = window,
 		$actions,
-		rightAction = 0,
 		showAlert = window.filemanageropen_alert || 0,
 		showButtons = window.filemanageropen_showbtn || 0;
-		windowloadCallback = function(){
-			$body = $("body");
-			$actions = $('#actions');
-			$kcfinderBlock = $('<div></div>').attr({'id':'kcfinder_div'});
-			$kcfinderFrameBlock = $('#kcfinder-frame', $kcfinderWindow);
-			$closeBtn = $('#kcfinder-close', $kcfinderWindow);
-			$body.append($kcfinderBlock.append($kcfinderWindow));
-			$closeBtn.on("click", closeBtnCallback);
-		},
-		clearBodyStyle = function(body, actions){
-			lastFileCtrl = lastImageCtrl = '';
-			window.KCFinder = null;
-			$kcfinderBlock.removeAttr("style");
-			$kcfinderFrameBlock.html("");
-			if(body.length){
-				body[0].style.overflow = "";
-				body[0].style.marginRight = "";
-				body[0].style.position = "";
-			}
-			if(actions.length)
-				actions[0].style.right = "";
-		},
-		closeBtnCallback = function (e){
-			e.preventDefault();
-			clearBodyStyle($body, $actions);
-			return !1;
-		},
-		openDialogWindow = function(){
-			$kcfinderWindow.removeAttr("style");
-			if(!$actions){
-				windowloadCallback();
-			}
-			if($actions.length){
-				rightAction = parseInt($actions.getIntCss('right'));
-			}
-			setTimeout(() => {
-				$(".kcfinder-window", $kcfinderBlock).Drags({
-					handler: '.kcfinder-header',
-					left: '30px',
-					top: '30px',
-					opacity: .85
-				});
-			}, 100);
-		},
 		window_init = function(){
-			windowloadCallback();
 			// Переопределяем метод window.open
 			(function(proxied) {
 				window.open = function() {
@@ -143,7 +16,6 @@
 						(function(px){
 							var fn = function(){
 								px.apply(this, arguments);
-								clearBodyStyle($body, $actions);
 							}
 							if(window.KCFinder.callBackMultiple){
 								window.KCFinder.callBackMultiple = fn;
@@ -154,17 +26,17 @@
 					}else{
 						if(arguments[1] == 'gener') {
 							// Вырубаем открытие в новом окне шаблоны, тв-параметры, чанки, сниппеты, плагины, модули.
-							let evoMod = window.modx || wimdow.parent.modx;
+							let evoMod = window.modx || window.parent.modx;
 							// Открываеи через API modx
-							modx.popup(
+							evoMod.popup(
 								{
 									url: window.location.origin + window.location.pathname + srg[0],
 									title: "gener",
 									icon: 'fa fa-external-link',
 									iframe: 'iframe',
 									position: 'center center',
-									width: '80%',
-									height: '80%',
+									width: '99%',
+									height: '99%',
 									hide: 0,
 									hover: 0,
 									resize: !0,
@@ -204,7 +76,6 @@
 		copyFilePath = function(file_path){
 			var fl = window.fmolang;
 			file_path = file_path.join("\n");
-			clearBodyStyle($body, $actions);
 			if(currentWin.navigator.clipboard){
 				currentWin.navigator.clipboard.writeText(file_path).then(function(){
 					if(showAlert){
@@ -248,67 +119,85 @@
 	}
 	// Переопределяем глобальную функию OpenServerBrowser
 	window.OpenServerBrowser = function(url) {
-		var w1 = $body.outerWidth(true),
-			w2,
-			w3;
-		$body.css({
-			"position": "relative",
-			"overflow": "hidden"
-		});
-		w2 = $body.outerWidth(true),
-		w3 = w2-w1;
-		if(w1 != w2) {
-			$body.css({
-				"marginRight": w3+'px'
-			});
-			$actions.css({"right": rightAction + w3 + "px"});
-		}
-		
-		$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text("FileManager");
-		
-		$kcfinderFrame = $("<iframe>").attr({
-			'class'			: 'kcfinder_iframe',
-			'name'			: 'kcfinder_iframe',
-			'src'			: url,
-			'frameborder'	: 0,
-			'scrolling'		: 'no'
-			
-		});
-		$kcfinderFrameBlock.html($kcfinderFrame);
-		$kcfinderBlock.css({
-			'display':'flex'
-		});
-		$kcfinderFrame = $("iframe", $kcfinderFrameBlock);
-		$kcfinderFrame.on('load', function(){
-			var iframeDocument = $kcfinderFrame[0].contentWindow.document;
-			$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text(iframeDocument.title);
-			$('a[href="kcact:maximize"]', iframeDocument).hide();
-			var callback = function (mutationsList, observer) {
-				$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text(iframeDocument.title);
-			};
-			var observer = new MutationObserver(callback);
-			observer.observe($("title", iframeDocument)[0], {
-				attributes: true,
-				childList: true,
-				subtree: true,
-			});
-			/**
-			$("title", iframeDocument)[0].addEventListener("DOMSubtreeModified", function() {
-				$('.kcfinder-header .kcfinder-header-title', $kcfinderBlock).text(iframeDocument.title);
-			});
-			*/
-		});
+		let evoMod = window.modx || window.parent.modx;
+		let evoPopupHeader;
+		let popup;
+		let pWidth;
+		let pHeight;
+		let myReq;
+		const eventHandler = (event) => {
+			//
+			let data = typeof event.data == "string" ? JSON.parse(event.data) : event.data;
+			switch(data.type){
+				case "kcfinder:change-title":
+					if(evoPopupHeader) {
+						evoPopupHeader.innerHTML = data.title;
+					}
+					break;
+			}
+		};
+		const eventResizeHandler = function() {
+			if ( popup ) {
+				let w,
+					h,
+					cw = Cookies.get('KCFINDER_popup_width') || '99%',
+					ch = Cookies.get('KCFINDER_popup_height') || '99%';
+				w = parseInt(100 * popup.el.offsetWidth / window.innerWidth) + "%";
+				h = parseInt(100 * popup.el.offsetHeight / window.innerHeight) + "%";
+				if ( w != parseInt(cw) + "%" ) {
+					Cookies.set('KCFINDER_popup_width', parseInt(w), { expires: 7, path: '' });
+				}
+				if ( h != parseInt(ch) + "%" ) {
+					Cookies.set('KCFINDER_popup_height', parseInt(h), { expires: 7, path: '' });
+				}
+				myReq = requestAnimationFrame(eventResizeHandler);
+			} else {
+				cancelAnimationFrame(myReq);
+			}
+		};
+		pWidth = Cookies.get('KCFINDER_popup_width') || '99%';
+		pHeight = Cookies.get('KCFINDER_popup_height') || '99%';
+		// Открываеи через API modx
+		popup = evoMod.popup(
+			{
+				url: url,
+				title: "File Manager Dialog",
+				icon: 'fa fa-external-link',
+				iframe: 'iframe',
+				position: 'center center',
+				width: parseInt(pWidth) + "%",
+				height: parseInt(pHeight) + "%",
+				hide: 0,
+				hover: 0,
+				resize: !0,
+				overlay: 1,
+				overlayclose: 1,
+				onclose: function() {
+					if(typeof reloadElementsInTree == 'function'){
+						setTimeout(reloadElementsInTree, 400);
+					}
+					// Удалить
+					evoPopupHeader = null;
+					window.removeEventListener('message', eventHandler);
+					// остановка
+					cancelAnimationFrame(myReq);
+					popup = null;
+				},
+				wrap: document.body
+			}
+		);
+		setTimeout(() => {
+			let popupEl = popup.el;
+			evoPopupHeader = popupEl.querySelector('.evo-popup-header');
+			window.addEventListener('message', eventHandler);
+			// старт
+			myReq = requestAnimationFrame(eventResizeHandler);
+		}, 100);
 	}
 	// Переопределяем глобальную функию BrowseServer
 	window.BrowseServer = function(ctrl) {
-		openDialogWindow();
+		//openDialogWindow();
 		var dir = "";
-		if($kcfinderBlock.length){
-			if ($kcfinderBlock[0].style.display == "block") {
-				clearBodyStyle($body, $actions);
-				return;
-			}
-		}
 		if(ctrl){
 			lastImageCtrl = ctrl;
 			// Переопределяем объект window.KCFinder
@@ -318,11 +207,11 @@
 					window.KCFinder = null;
 					field.value = url;
 					SetUrlChange(field);
-					clearBodyStyle($body, $actions);
 				}
 			};
 			dir = directory(ctrl);
 		}else{
+			// По сути нужно попытаться найти соседний input.
 			window.KCFinder = {
 				callBack: function(url) {
 					var field = $('input[name="photo"]'),
@@ -335,7 +224,6 @@
 						})
 						SetUrlChange(field[0]);
 					}
-					clearBodyStyle($body, $actions);
 				}
 			};
 			dir = directory();
@@ -344,14 +232,8 @@
 	}
 	// Переопределяем глобальную функию BrowseFileServer
 	window.BrowseFileServer = function(ctrl) {
-		openDialogWindow();
+		//openDialogWindow();
 		lastFileCtrl = ctrl;
-		if($kcfinderBlock.length){
-			if ($kcfinderBlock[0].style.display == "block") {
-				clearBodyStyle($body, $actions);
-				return;
-			}
-		}
 		// Переопределяем объект window.KCFinder
 		window.KCFinder = {
 			callBack: function(url) {
@@ -359,18 +241,17 @@
 				window.KCFinder = null;
 				field.value = url;
 				SetUrlChange(field);
-				clearBodyStyle($body, $actions);
 			}
 		};
 		var dir = directory(ctrl);
 		OpenServerBrowser(window.filemanageropen_url + '?type=files' + dir);
 	}
 	if (window.addEventListener) {
-		window.addEventListener('load', window_init, false); 
+		window.addEventListener('load', window_init, false);
 	} else if (window.attachEvent)  {
 		window.attachEvent('onload', window_init);
 	}
-	
+
 	/**
 	 ** Добавим кнопки к контенту
 	**/
@@ -392,7 +273,7 @@
 						copyFilePath(url);
 					}
 				};
-				openDialogWindow();
+				//openDialogWindow();
 				OpenServerBrowser(window.filemanageropen_url + '?type=' + attr);
 				return !1;
 			});

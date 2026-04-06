@@ -16,7 +16,7 @@
  * @license      https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/blob/master/LICENSE MIT License (MIT)
  * @reportissues https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/issues
  * @author       Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>
- * @lastupdate   2026-04-05
+ * @lastupdate   2026-04-06
  */
 
 /**
@@ -36,6 +36,6 @@
  * @license      https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/blob/master/LICENSE MIT License (MIT)
  * @reportissues https://github.com/ProjectSoft-STUDIONIONS/evoFileManagerDialog/issues
  * @author       Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>
- * @lastupdate   2026-04-05
+ * @lastupdate   2026-04-06
  */
 require MODX_BASE_PATH.'assets/plugins/filemanageropen/plugin.filemanageropen.php';
