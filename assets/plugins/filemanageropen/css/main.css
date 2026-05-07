@@ -20,6 +20,10 @@
 }
 #actions .evoflbw_wrapper.btn-group {
   z-index: 0;
+  justify-content: flex-end;
+}
+#actions .evoflbw_wrapper.btn-group > * {
+  flex: 0 1 auto;
 }
 .light #actions .evoflbw_wrapper.btn-group .btn-secondary:not(:disabled):not(.disabled):focus {
   color: #000;

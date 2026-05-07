@@ -1,6 +1,7 @@
 ;(function(document, window, $){
 	window.lastImageCtrl = '';
 	window.lastFileCtrl = '';
+	const icon_header = "fa fa-external-link";
 	var currentWin = window,
 		$actions,
 		showAlert = window.filemanageropen_alert || 0,
@@ -26,30 +27,35 @@
 					}else{
 						if(arguments[1] == 'gener') {
 							// Вырубаем открытие в новом окне шаблоны, тв-параметры, чанки, сниппеты, плагины, модули.
-							let evoMod = window.modx || window.parent.modx;
-							// Открываеи через API modx
-							evoMod.popup(
-								{
-									url: window.location.origin + window.location.pathname + srg[0],
-									title: "gener",
-									icon: 'fa fa-external-link',
-									iframe: 'iframe',
-									position: 'center center',
-									width: '99%',
-									height: '99%',
-									hide: 0,
-									hover: 0,
-									resize: !0,
-									overlay: 1,
-									overlayclose: 1,
-									onclose: function() {
-										if(typeof reloadElementsInTree == 'function'){
-											setTimeout(reloadElementsInTree, 400);
-										}
-									},
-									wrap: document.body
-								}
-							);
+							let evoMod = window.modx || window.parent.modx || window.parent.parent.modx;
+							// Открываем через API modx
+							if(typeof evoMod == 'object'){
+								evoMod.popup(
+									{
+										url: window.location.origin + window.location.pathname + srg[0],
+										title: "gener",
+										icon: icon_header,
+										iframe: 'iframe',
+										position: 'center center',
+										width: '99%',
+										height: '99%',
+										hide: 0,
+										hover: 0,
+										resize: !0,
+										overlay: 1,
+										overlayclose: 1,
+										onclose: function() {
+											if(typeof reloadElementsInTree == 'function'){
+												setTimeout(reloadElementsInTree, 400);
+											}
+										},
+										wrap: document.body
+									}
+								);
+							}else{
+								// Иначе работает метод window.open, как и должно быть.
+								return proxied.apply(this, srg);
+							}
 						}else{
 							// Иначе работает метод window.open, как и должно быть.
 							return proxied.apply(this, srg);
@@ -119,8 +125,8 @@
 	}
 	// Переопределяем глобальную функию OpenServerBrowser
 	window.OpenServerBrowser = function(url) {
-		let evoMod = window.modx || window.parent.modx;
-		let evoPopupHeader;
+		let evoMod = window.modx || window.parent.modx || window.parent.parent.modx;
+		//let evoPopupHeader;
 		let popup;
 		let pWidth;
 		let pHeight;
@@ -131,7 +137,7 @@
 			switch(data.type){
 				case "kcfinder:change-title":
 					if(evoPopupHeader) {
-						evoPopupHeader.innerHTML = data.title;
+						evoPopupHeader.innerHTML = `<i class="${icon_header}"></i>` + data.title;
 					}
 					break;
 			}
@@ -158,41 +164,43 @@
 		pWidth = Cookies.get('KCFINDER_popup_width') || '99%';
 		pHeight = Cookies.get('KCFINDER_popup_height') || '99%';
 		// Открываеи через API modx
-		popup = evoMod.popup(
-			{
-				url: url,
-				title: "File Manager Dialog",
-				icon: 'fa fa-external-link',
-				iframe: 'iframe',
-				position: 'center center',
-				width: parseInt(pWidth) + "%",
-				height: parseInt(pHeight) + "%",
-				hide: 0,
-				hover: 0,
-				resize: !0,
-				overlay: 1,
-				overlayclose: 1,
-				onclose: function() {
-					if(typeof reloadElementsInTree == 'function'){
-						setTimeout(reloadElementsInTree, 400);
-					}
-					// Удалить
-					evoPopupHeader = null;
-					window.removeEventListener('message', eventHandler);
-					// остановка
-					cancelAnimationFrame(myReq);
-					popup = null;
-				},
-				wrap: document.body
-			}
-		);
-		setTimeout(() => {
-			let popupEl = popup.el;
-			evoPopupHeader = popupEl.querySelector('.evo-popup-header');
-			window.addEventListener('message', eventHandler);
-			// старт
-			myReq = requestAnimationFrame(eventResizeHandler);
-		}, 100);
+		if(typeof evoMod == 'object') {
+			popup = evoMod.popup(
+				{
+					url: url,
+					title: "File Manager Dialog",
+					icon: icon_header,
+					iframe: 'iframe',
+					position: 'center center',
+					width: parseInt(pWidth) + "%",
+					height: parseInt(pHeight) + "%",
+					hide: 0,
+					hover: 0,
+					resize: !0,
+					overlay: 1,
+					overlayclose: 1,
+					onclose: function() {
+						if(typeof reloadElementsInTree == 'function'){
+							setTimeout(reloadElementsInTree, 400);
+						}
+						// Удалить
+						evoPopupHeader = null;
+						window.removeEventListener('message', eventHandler);
+						// остановка
+						cancelAnimationFrame(myReq);
+						popup = null;
+					},
+					wrap: document.body
+				}
+			);
+			setTimeout(() => {
+				let popupEl = popup.el;
+				evoPopupHeader = popupEl.querySelector('.evo-popup-header');
+				window.addEventListener('message', eventHandler);
+				// старт
+				myReq = requestAnimationFrame(eventResizeHandler);
+			}, 100);
+		}
 	}
 	// Переопределяем глобальную функию BrowseServer
 	window.BrowseServer = function(ctrl) {
