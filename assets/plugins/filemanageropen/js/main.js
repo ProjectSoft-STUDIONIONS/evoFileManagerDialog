@@ -33,6 +33,7 @@
 								evoMod.popup(
 									{
 										url: window.location.origin + window.location.pathname + srg[0],
+										addclass: 'kcfinder_popup',
 										title: "gener",
 										icon: icon_header,
 										iframe: 'iframe',
@@ -137,7 +138,7 @@
 			switch(data.type){
 				case "kcfinder:change-title":
 					if(evoPopupHeader) {
-						evoPopupHeader.innerHTML = `<i class="${icon_header}"></i>` + data.title;
+						evoPopupHeader.innerHTML = `<i class="${icon_header}"></i>${data.title}`;
 					}
 					break;
 			}
@@ -163,12 +164,15 @@
 		};
 		pWidth = Cookies.get('KCFINDER_popup_width') || '99%';
 		pHeight = Cookies.get('KCFINDER_popup_height') || '99%';
+		pWidth = parseInt(pWidth) > 99 ? '99%' : pWidth;
+		pHeight = parseInt(pHeight) > 99 ? '99%' : pHeight;
 		// Открываеи через API modx
 		if(typeof evoMod == 'object') {
 			popup = evoMod.popup(
 				{
+					addclass: 'kcfinder_popup',
 					url: url,
-					title: "File Manager Dialog",
+					title: `<i class="${icon_header}">File Manager Dialog`,
 					icon: icon_header,
 					iframe: 'iframe',
 					position: 'center center',
