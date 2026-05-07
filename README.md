@@ -22,4 +22,4 @@ npm run build
 
 ### Автор
 
-Autor: [ProjectSoft](https://projectsoft.ru/)
+Autor: [ProjectSoft](https://vk.com/projectsoft)
