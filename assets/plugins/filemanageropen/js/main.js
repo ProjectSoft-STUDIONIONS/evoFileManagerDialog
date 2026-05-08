@@ -1,11 +1,11 @@
 ;(function(document, window, $){
 	window.lastImageCtrl = '';
 	window.lastFileCtrl = '';
-	const icon_header = "fa fa-external-link";
+	const icon_header = "fa fa-folder-open";
 	var currentWin = window,
 		$actions,
-		showAlert = window.filemanageropen_alert || 0,
-		showButtons = window.filemanageropen_showbtn || 0;
+		showAlert = parseInt(window.filemanageropen_alert) || 0,
+		showButtons = parseInt(window.filemanageropen_showbtn) || 0;
 		window_init = function(){
 			// Переопределяем метод window.open
 			(function(proxied) {
@@ -33,8 +33,8 @@
 								evoMod.popup(
 									{
 										url: window.location.origin + window.location.pathname + srg[0],
-										addclass: 'kcfinder_popup',
-										title: "gener",
+										addclass: 'gener_popup',
+										title: window.fmolang["load"],
 										icon: icon_header,
 										iframe: 'iframe',
 										position: 'center center',
@@ -80,13 +80,19 @@
 			}
 			return dir;
 		},
+		alertPopup = function(message = "", file_path = "", type = "default") {
+			let evoMod = window.modx || window.parent.modx || window.parent.parent.modx;
+			file_path = file_path.split("\n").join("<br>");
+			evoMod.alert( `${message}<br>${file_path}`, type);
+		},
 		copyFilePath = function(file_path){
 			var fl = window.fmolang;
 			file_path = file_path.join("\n");
 			if(currentWin.navigator.clipboard){
 				currentWin.navigator.clipboard.writeText(file_path).then(function(){
 					if(showAlert){
-						currentWin.alert(fl["copy"] + "\n" + file_path);
+						//currentWin.alert(fl["copy"] + "\n" + file_path);
+						alertPopup(fl["copy"], file_path, 'success');
 					}
 				}, function(err){
 					alternativeCopyFilePath(file_path);
@@ -104,14 +110,16 @@
 					input.focus();
 					input.select();
 					if(!currentWin.document.execCommand('copy')) {
-						currentWin.alert(fl["nocopy"]);
+						//currentWin.alert(fl["nocopy"]);
+						alertPopup(fl["nocopy"], "", 'danger');
+					}else{
+						if(showAlert){
+							alertPopup(fl["copy"], path, 'success');
+						}
 					}
 					currentWin.document.body.removeChild(input);
-					if(showAlert){
-						currentWin.alert(fl["copy"] + "\n" + path);
-					}
 				} catch (err) {
-					currentWin.alert(fl["nocopy"]);
+					alertPopup(fl["nocopy"], "", 'danger');
 				}
 			}
 		};
@@ -127,22 +135,40 @@
 	// Переопределяем глобальную функию OpenServerBrowser
 	window.OpenServerBrowser = function(url) {
 		let evoMod = window.modx || window.parent.modx || window.parent.parent.modx;
-		//let evoPopupHeader;
 		let popup;
 		let pWidth;
 		let pHeight;
 		let myReq;
+		let intIframe;
+		let popupIframe;
 		const eventHandler = (event) => {
 			//
 			let data = typeof event.data == "string" ? JSON.parse(event.data) : event.data;
 			switch(data.type){
 				case "kcfinder:change-title":
 					if(evoPopupHeader) {
-						evoPopupHeader.innerHTML = `<i class="${icon_header}"></i>${data.title}`;
+						const regex = /^(kcfinder)/i;
+						const subst = `<i class="${icon_header}"></i>$1`;
+						data.title = data.title.replace(regex, subst);
+						evoPopupHeader.innerHTML = data.title;
 					}
 					break;
 			}
 		};
+		const iframeLoad = function(e) {
+			if (e.target.contentDocument.title) {
+				// Если есть шапка попапа
+				if(evoPopupHeader) {
+					// Перезапись заголовка
+					const regex = /^(kcfinder)/i;
+					const subst = `<i class="${icon_header}"></i>$1`;
+					evoPopupHeader.innerHTML = e.target.contentDocument.title.replace(regex, subst);
+					// Остановить прелоадер
+					evoMod.main.stopWork();
+				}
+			}
+		}
+		// Ресайз попапа с kcfinder
 		const eventResizeHandler = function() {
 			if ( popup ) {
 				let w,
@@ -172,7 +198,7 @@
 				{
 					addclass: 'kcfinder_popup',
 					url: url,
-					title: `<i class="${icon_header}">File Manager Dialog`,
+					title: window.fmolang["kcfinder"],
 					icon: icon_header,
 					iframe: 'iframe',
 					position: 'center center',
@@ -183,27 +209,32 @@
 					resize: !0,
 					overlay: 1,
 					overlayclose: 1,
-					onclose: function() {
+					onclose: function(e, obj) {
 						if(typeof reloadElementsInTree == 'function'){
 							setTimeout(reloadElementsInTree, 400);
 						}
+						popupIframe && popupIframe.removeEventListener('load', iframeLoad)
 						// Удалить
+						popupIframe = null;
 						evoPopupHeader = null;
 						window.removeEventListener('message', eventHandler);
 						// остановка
 						cancelAnimationFrame(myReq);
 						popup = null;
 					},
+					// Если подобная функция всё же будет
+					onshow: function(e, obj) {
+						evoPopupHeader = obj.querySelector('.evo-popup-header');
+						popupIframe = obj.querySelector('iframe');
+						// Подписываемся на события
+						window.addEventListener('message', eventHandler);
+						// старт ресайза.
+						myReq = requestAnimationFrame(eventResizeHandler);
+						popupIframe && popupIframe.addEventListener('load', iframeLoad);
+					},
 					wrap: document.body
 				}
 			);
-			setTimeout(() => {
-				let popupEl = popup.el;
-				evoPopupHeader = popupEl.querySelector('.evo-popup-header');
-				window.addEventListener('message', eventHandler);
-				// старт
-				myReq = requestAnimationFrame(eventResizeHandler);
-			}, 100);
 		}
 	}
 	// Переопределяем глобальную функию BrowseServer
@@ -271,10 +302,17 @@
 		var $td = $('#actions');
 		if($td.length){
 			var fl = window.fmolang;
+			// Сделать логику на показ определённых клавишь
 			var html = `<div class="evoflbw_wrapper btn-group">`;
-			html += `<a href="evoflbw:button" data-type="images" class="btn btn-secondary"><i class="fas fa-file-image fa"></i><span>` + fl["images"] + `</span></a>`;
-			html += `<a href="evoflbw:button" data-type="media" class="btn btn-secondary"><i class="fas fa-file-video fa"></i><span>` + fl["media"] + `</span></a>`;
-			html += `<a href="evoflbw:button" data-type="files" class="btn btn-secondary"><i class="fas fa-file-alt fa"></i><span>` + fl["files"] + `</span></a>`;
+			if(parseInt(fl["showimage"]) || 0) {
+				html += `<a href="evoflbw:button" data-type="images" class="btn btn-secondary"><i class="fas fa-file-image fa"></i><span>` + fl["images"] + `</span></a>`;
+			}
+			if(parseInt(fl["showfile"]) || 0){
+				html += `<a href="evoflbw:button" data-type="files" class="btn btn-secondary"><i class="fas fa-file-alt fa"></i><span>` + fl["files"] + `</span></a>`;
+			}
+			if(parseInt(fl["showmedia"]) || 0){
+				html += `<a href="evoflbw:button" data-type="media" class="btn btn-secondary"><i class="fas fa-file-video fa"></i><span>` + fl["media"] + `</span></a>`;
+			}
 			html += `</div>`;
 			$td.append(html);
 			$('a[href*="evoflbw:"]').on('click', function(e){

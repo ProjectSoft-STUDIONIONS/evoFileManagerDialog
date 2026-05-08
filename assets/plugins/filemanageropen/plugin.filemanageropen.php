@@ -26,7 +26,9 @@ switch($e->name){
 			"media"		=> "Media",
 			"images"	=> "Images",
 			"copy"		=> "Copied",
-			"nocopy"	=> "Your browser does not support copying to the clipboard"
+			"nocopy"	=> "Your browser does not support copying to the clipboard",
+			"kcfinder"	=> "File manager",
+			"load"		=> "Loading..."
 		);
 
 		if(is_file(dirname(__FILE__) . "/lang/" . $lng . ".inc.php")):
@@ -50,8 +52,8 @@ switch($e->name){
 		$params = $e->params;
 		$showAlert      = isset($params["show_alert_copy"]) ? ((int)$params["show_alert_copy"] ? 1 : 0) : 1;
 		$showButtons    = isset($params["show_buttons"])    ? ((int)$params["show_buttons"]    ? 1 : 0) : 1;
-		$show_image     = isset($params["show_image"])      ? ((int)$params["show_image"]      ? 1 : 0) : 1;
-		$show_file      = isset($params["show_file"])       ? ((int)$params["show_file"]       ? 1 : 0) : 1;
+		$show_image     = isset($params["show_images"])     ? ((int)$params["show_images"]     ? 1 : 0) : 1;
+		$show_file      = isset($params["show_files"])      ? ((int)$params["show_files"]      ? 1 : 0) : 1;
 		$show_media     = isset($params["show_media"])      ? ((int)$params["show_media"]      ? 1 : 0) : 1;
 
 		$temp_lang = array_merge(array(), $lang);

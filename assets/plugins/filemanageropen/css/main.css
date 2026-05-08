@@ -115,6 +115,7 @@
 h1 {
   margin-bottom: 1.6rem;
 }
+.gener_popup .evo-popup-header,
 .kcfinder_popup .evo-popup-header {
   box-shadow: 0 0 16px 2px #bbb;
   z-index: 2;

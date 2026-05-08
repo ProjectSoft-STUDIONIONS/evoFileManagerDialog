@@ -32,7 +32,7 @@ const fs = require('fs'),
  * @package      evo
  * @internal     @events OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
  * @internal     @modx_category ${category}
- * @internal     @properties &show_buttons=Показать кнопки файлменеджера в ресурсе;list;0,1;1 &show_alert_copy=Показать сообщение о копировании пути в FileManager;list;0,1;0
+ * @internal     @properties &show_buttons=Показать кнопки файлменеджера в ресурсе;list;0,1;1 &show_alert_copy=Показать сообщение о копировании пути в FileManager;list;0,1;0 &show_files=Показать кнопку файлов;list;0,1;1 &show_images=Показать кнопку изображений;list;0,1;1 &show_media=Показать кнопку медиа;list;0,1;1
  * @internal     @installset base
  * @internal     @disabled 0
  * @homepage     ${homepage}
