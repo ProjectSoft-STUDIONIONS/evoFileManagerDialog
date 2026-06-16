@@ -133,7 +133,7 @@
 		}
 	}
 	// Переопределяем глобальную функию OpenServerBrowser
-	window.OpenServerBrowser = function(url) {
+	window.OpenServerBrowser = function(url, ctrl) {
 		let evoMod = window.modx || window.parent.modx || window.parent.parent.modx;
 		let popup;
 		let pWidth;
@@ -209,6 +209,7 @@
 					resize: !0,
 					overlay: 1,
 					overlayclose: 1,
+					zIndex: 300000,
 					onclose: function(e, obj) {
 						if(typeof reloadElementsInTree == 'function'){
 							setTimeout(reloadElementsInTree, 400);
@@ -266,12 +267,14 @@
 							src: "/" + url
 						})
 						SetUrlChange(field[0]);
+					}else{
+						//
 					}
 				}
 			};
 			dir = directory();
 		}
-		OpenServerBrowser(window.filemanageropen_url + '?type=images' + dir);
+		OpenServerBrowser(window.filemanageropen_url + '?type=images' + dir, ctrl);
 	}
 	// Переопределяем глобальную функию BrowseFileServer
 	window.BrowseFileServer = function(ctrl) {
@@ -287,7 +290,7 @@
 			}
 		};
 		var dir = directory(ctrl);
-		OpenServerBrowser(window.filemanageropen_url + '?type=files' + dir);
+		OpenServerBrowser(window.filemanageropen_url + '?type=files' + dir, ctrl);
 	}
 	if (window.addEventListener) {
 		window.addEventListener('load', window_init, false);
