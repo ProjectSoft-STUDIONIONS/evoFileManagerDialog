@@ -45,7 +45,7 @@
 										resize: !0,
 										overlay: 1,
 										overlayclose: 1,
-										zIndex: 300000,
+										zIndex: 90000,
 										onclose: function() {
 											if(typeof reloadElementsInTree == 'function'){
 												setTimeout(reloadElementsInTree, 400);
@@ -210,7 +210,7 @@
 					resize: !0,
 					overlay: 1,
 					overlayclose: 1,
-					zIndex: 300000,
+					zIndex: 90000,
 					onclose: function(e, obj) {
 						if(typeof reloadElementsInTree == 'function'){
 							setTimeout(reloadElementsInTree, 400);
