@@ -45,6 +45,7 @@
 										resize: !0,
 										overlay: 1,
 										overlayclose: 1,
+										zIndex: 300000,
 										onclose: function() {
 											if(typeof reloadElementsInTree == 'function'){
 												setTimeout(reloadElementsInTree, 400);
