@@ -79,6 +79,7 @@ switch($e->name){
 					src: \"/" . $js . "\"
 				});
 				jQuery(\"body\").append(scr);
+				jQuery(\"body\").addClass(\"filemanageropen\");
 			});
 		</script>";
 		$modx->event->output($out);
